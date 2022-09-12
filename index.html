@@ -10,7 +10,84 @@
   <title>Mesto</title>
 </head>   
 <body class="page">
-  
+  <!--Шапка-->
+  <header class="header">
+    <img src="./images/logo_white.svg" alt="Лого сайта" class="header__logo">
+  </header>
 
+  <main class="content">
+
+    <!--Профиль-->
+    <section class="profile">
+      <div class="profile__avatar">
+        <img src="./images/avatar_kusto.svg" title="Ваш аватар" alt="Аватар" class="profile__avatar-img">
+        <button class="profile__avatar-edit-button" type="button" title="Загрузить новый аватар"></button>
+      </div>
+      <div class="profile__info">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <p class="profile__about">Исследователь океана</з>
+        <button class="profile__edit-button" type="button" title="Редактировать профиль"></button>
+      </div>
+      <button class="profile__add-button" type="button" title="Добавить новое место"></button>
+    </section>
+
+    <!--Фото-->
+    <section class="elements">
+      <ul class="elements__list">
+        <li class="card">
+          <img src="./images/karachaevsk.svg" alt="Ваше место" class="card__img">
+          <p class="card__caption">Место</p>
+          <button class="card__like-button" type="button" title="Мне нравится"></button>
+        </li>
+        <li class="card">
+          <img src="./images/karachaevsk.svg" alt="Ваше место" class="card__img">
+          <p class="card__caption">Место</p>
+          <button class="card__like-button" type="button" title="Мне нравится"></button>
+        </li>
+        <li class="element">
+          <img src="./images/karachaevsk.svg" alt="Ваше место" class="card__img">
+          <p class="card__caption">Место</p>
+          <button class="card__like-button" type="button" title="Мне нравится"></button>
+        </li>
+        <li class="element">
+          <img src="./images/karachaevsk.svg" alt="Ваше место" class="card__img">
+          <p class="card__caption">Место</p>
+          <button class="card__like-button" type="button" title="Мне нравится"></button>
+        </li>
+        <li class="element">
+          <img src="./images/karachaevsk.svg" alt="Ваше место" class="card__img">
+          <p class="card__caption">Место</p>
+          <button class="card__like-button" type="button" title="Мне нравится"></button>
+        </li>
+        <li class="element">
+          <img src="./images/karachaevsk.svg" alt="Ваше место" class="card__img">
+          <p class="card__caption">Место</p>
+          <button class="card__like-button" type="button" title="Мне нравится"></button>
+        </li>
+      </ul>
+    </section>
+      <!--Подвал-->
+    <footer class="footer">
+      <p class="footer__author">&copy; 2022. Егор Филимонов</p>
+    </footer>
+
+      <!--Попап редактирование профиля-->
+    <section class="popup">
+      <form class="popup__container" name="profile" novalidate>
+        <fieldset class="popup__set">
+          <p class="popup__title">Редактировать профиль</p>
+          <label class="popup__container-field">
+            <input type="text" class="popup__input" name="name" placeholder="Ваше имя" maxlength="40" required>
+            </label>
+            <label class="popup__container-field">
+            <input type="text" class="popup__input" name="about" placeholder="Расскажите о себе" maxlength="200" required>
+          </label>
+          <button type="submit" class="popup__save-button">Сохранить</button>
+        </fieldset>
+        <button type="button" class="popup__close-button"></button>
+      </form>
+      <div class="popup__overlay"></div>
+    </section>
+  </main>
 </body>
 </html>
