@@ -1,0 +1,22 @@
+.header__logo {
+  margin-bottom: 41px;
+}
+
+@media screen and (max-width: 1279px) {
+  .header__logo {
+    margin-bottom: 3.1vw;
+  }
+}
+
+@media screen and (max-width: 934px) {
+  .header__logo {
+    margin-left: calc(27px - ((100vw - 880px) / 2));
+  }
+}
+
+@media screen and (max-width: 879px) {
+  .header__logo {
+    margin-left: 27px;
+    margin-bottom: 31px;
+  }
+}
