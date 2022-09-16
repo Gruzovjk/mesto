@@ -1,0 +1,10 @@
+.card__img {
+  width: 100%;
+  height: 282px;
+  transition: all 0.2s ease-in;
+}
+
+.card__img:hover {
+  cursor: zoom-in;
+  opacity: 0.9;
+}

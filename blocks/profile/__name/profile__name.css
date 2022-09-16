@@ -1,6 +1,7 @@
 .profile__name {
   margin: 0;
   padding: 0;
+  max-width: 445px;
   grid-area: name;
   font-family: "Inter";
   font-style: normal;
@@ -12,8 +13,21 @@
   overflow: hidden;
 }
 
+@media screen and (max-width: 720px) {
+  .profile__name {
+    max-width: 330px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .profile__name {
+    max-width: 300px;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .profile__name {
+    max-width: 220px;
     font-size: 27px;
     line-height: 33px;
   }
