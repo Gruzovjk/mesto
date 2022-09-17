@@ -1,0 +1,23 @@
+.popup__input {
+  width: 100%;
+  border: none;
+  padding-bottom: 13px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.popup__input:focus {
+  outline: none;
+}
+
+.popup__input::placeholder {
+  color: #c4c4c4;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
