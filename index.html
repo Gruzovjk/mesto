@@ -25,13 +25,13 @@
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто Бельмандо</h1>
         <button class="profile__edit-button page__button-cursor" type="button" title="Редактировать профиль"></button>
-        <p class="profile__about">Исследователь собачих равнин и морских баребухов</з>
+        <p class="profile__about">Исследователь собачих равнин и морских баребухов</p>
       </div>
       <button class="profile__add-button page__button-cursor" type="button" title="Добавить новое место"></button>
     </section>
 
     <!--Фото-->
-    <section class="elements">
+    <div class="elements">
       <ul class="elements__list">
         <li class="card">
           <img src="./images/coliseum.jpg" alt="Ваше место" class="card__img">
@@ -76,7 +76,7 @@
           </div>  
         </li>
       </ul>
-    </section>
+    </div>
   </main>
       <!--Подвал-->
   <footer class="footer">
@@ -84,7 +84,7 @@
   </footer>
 
       <!--Попап редактирование профиля-->
-  <section id="editProfile" class="popup">
+  <div id="editProfile" class="popup">
     <form class="popup__container" name="profile" novalidate>
       <fieldset class="popup__set">
         <p class="popup__title">Редактировать профиль</p>
@@ -98,7 +98,7 @@
       </fieldset>
       <button type="button" class="popup__close-button popup__button-cursor"></button>
     </form>
-  </section>
+  </div>
   <script src="./scripts/popup.js"></script>
 </body>
 </html>
