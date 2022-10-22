@@ -12,11 +12,6 @@
   transition: all 0.2s linear;
 }
 
-.popup__close-button:hover {
-  opacity: 0.8;
-  cursor: url(../../../images/cursor.svg), pointer;
-}
-
 @media screen and (max-width: 425px) {
   .popup__close-button {
     background-image: url(../../../images/close-button_mobile.svg);

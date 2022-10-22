@@ -14,11 +14,6 @@
   transition: all 0.2s linear;
 }
 
-.profile__edit-button:hover {
-  opacity: 0.6;
-  cursor: url(../../../images/cursor.svg), pointer;
-}
-
 @media screen and (max-width: 425px) {
   .profile__edit-button {
     width: 18px;

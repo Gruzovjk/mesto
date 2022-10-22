@@ -24,10 +24,10 @@
       </div>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто Бельмандо</h1>
-        <button class="profile__edit-button" type="button" title="Редактировать профиль"></button>
+        <button class="profile__edit-button page__button-cursor" type="button" title="Редактировать профиль"></button>
         <p class="profile__about">Исследователь собачих равнин и морских баребухов</з>
       </div>
-      <button class="profile__add-button" type="button" title="Добавить новое место"></button>
+      <button class="profile__add-button page__button-cursor" type="button" title="Добавить новое место"></button>
     </section>
 
     <!--Фото-->
@@ -37,69 +37,68 @@
           <img src="./images/coliseum.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
             <p class="card__caption-text">Длинное название места</p>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
+            <button class="card__like-button page__button-cursor" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/jungles.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
             <p class="card__caption-text">Место</p>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
+            <button class="card__like-button page__button-cursor" type="button" title="Мне нравится"></button>
           </div>
         </li>
         <li class="card">
           <img src="./images/lavender.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
             <p class="card__caption-text">Место</p>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
+            <button class="card__like-button page__button-cursor" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/oazis.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
             <p class="card__caption-text">Место</p>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
+            <button class="card__like-button page__button-cursor" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/waterfall.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
             <p class="card__caption-text">Место</p>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
+            <button class="card__like-button page__button-cursor" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/mountain-trail.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
             <p class="card__caption-text">Место</p>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
+            <button class="card__like-button page__button-cursor" type="button" title="Мне нравится"></button>
           </div>  
         </li>
       </ul>
     </section>
   </main>
       <!--Подвал-->
-    <footer class="footer">
-      <p class="footer__author">&copy; 2022. Егор Филимонов</p>
-    </footer>
+  <footer class="footer">
+    <p class="footer__author">&copy; 2022. Егор Филимонов</p>
+  </footer>
 
       <!--Попап редактирование профиля-->
-    <section class="popup">
-      <form class="popup__container" name="profile" novalidate>
-        <fieldset class="popup__set">
-          <p class="popup__title">Редактировать профиль</p>
-          <label class="popup__container-field">
-            <input type="text" class="popup__input" name="name" placeholder="Ваше имя" maxlength="40" required>
-            </label>
-            <label class="popup__container-field">
-            <input type="text" class="popup__input" name="about" placeholder="Расскажите о себе" maxlength="200" required>
-          </label>
-          <button type="submit" class="popup__save-button">Сохранить</button>
-        </fieldset>
-        <button type="button" class="popup__close-button"></button>
-      </form>
-      
-    </section>
-  
+  <section id="editProfile" class="popup">
+    <form class="popup__container" name="profile" novalidate>
+      <fieldset class="popup__set">
+        <p class="popup__title">Редактировать профиль</p>
+        <label class="popup__container-field">
+          <input type="text" class="popup__input" id="popup__input-name" name="name" placeholder="Ваше имя" maxlength="40" required>
+        </label>
+        <label class="popup__container-field">
+          <input type="text" class="popup__input" id="popup__input-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
+        </label>
+        <button type="submit" class="popup__save-button popup__button-cursor">Сохранить</button>
+      </fieldset>
+      <button type="button" class="popup__close-button popup__button-cursor"></button>
+    </form>
+  </section>
+  <script src="./scripts/popup.js"></script>
 </body>
 </html>

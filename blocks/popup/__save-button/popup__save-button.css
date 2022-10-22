@@ -16,11 +16,6 @@
   transition: all 0.2s linear;
 }
 
-.popup__save-button:hover {
-  opacity: 0.8;
-  cursor: url(../../../images/cursor.svg), pointer;
-}
-
 @media screen and (max-width: 650px) {
   .popup__save-button {
     max-width: 258px;
