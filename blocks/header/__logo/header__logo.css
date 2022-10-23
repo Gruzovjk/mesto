@@ -20,3 +20,10 @@
     margin-bottom: 31px;
   }
 }
+
+@media screen and (max-width: 651px) {
+  .header__logo {
+    max-width: 103px;
+    max-height: 24px;
+  }
+}

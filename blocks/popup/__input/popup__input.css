@@ -2,7 +2,6 @@
   width: 100%;
   border: none;
   padding: 0 0 13px;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -15,7 +14,6 @@
 
 .popup__input::placeholder {
   color: #c4c4c4;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;

@@ -7,13 +7,17 @@
   color: white;
   border-radius: 2px;
   border: none;
-  font-family: "Inter";
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   text-align: center;
   transition: all 0.2s linear;
+}
+
+.popup__save-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 650px) {
