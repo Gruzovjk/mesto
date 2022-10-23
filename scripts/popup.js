@@ -7,11 +7,15 @@ let editProfile = document.querySelector("#editProfile");
 // кнопки закрытия и сейва. пока сделал для общего класса попапов
 let closeButton = document.querySelector(".popup__close-button");
 let saveButton = document.querySelector(".popup__save-button");
-// открытиt/закрытиt попапа редактирования профиля
+// открыть попап редактирования профиля
 function showPopup() {
-  editProfile.classList.toggle("popup_opened");
+  editProfile.classList.add("popup_opened");
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
+}
+// закрыть попап редактирования профиля
+function closePopup() {
+  editProfile.classList.remove("popup_opened");
 }
 // имя профиля && описание профиля
 let profileName = document.querySelector(".profile__name");
@@ -32,4 +36,4 @@ function formSubmitHandler(evt) {
 formElement.addEventListener("submit", formSubmitHandler);
 // слушатели кнопок открытия/закрытия попапа редактирования профиля
 profileEditButton.addEventListener("click", showPopup);
-closeButton.addEventListener("click", showPopup);
+closeButton.addEventListener("click", closePopup);
