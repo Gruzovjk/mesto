@@ -1,39 +1,39 @@
 // кнопка редкатирования профиля на странице
-let profileEditButton = document.querySelector(".profile__edit-button");
+const profileEditButton = document.querySelector(".profile__edit-button");
 // общий класс всех попапов
-let popup = document.querySelectorAll(".popup");
+const popup = document.querySelectorAll(".popup");
 // попап редактирования профиля
-let editProfile = document.querySelector("#editProfile");
+const editProfile = document.querySelector("#editProfile");
 // кнопки закрытия и сейва. пока сделал для общего класса попапов
-let closeButton = document.querySelector(".popup__close-button");
-let saveButton = document.querySelector(".popup__save-button");
+const closePopupButton = document.querySelector(".popup__close-button");
+const savePopupButton = document.querySelector(".popup__save-button");
 // открыть попап редактирования профиля
 function showPopup() {
-  editProfile.classList.add("popup_opened");
+  editProfile.classList.toggle("popup_opened");
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
 }
 // закрыть попап редактирования профиля
 function closePopup() {
-  editProfile.classList.remove("popup_opened");
+  editProfile.classList.toggle("popup_opened");
 }
 // имя профиля && описание профиля
-let profileName = document.querySelector(".profile__name");
-let profileAbout = document.querySelector(".profile__about");
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__about");
 // форма попапа
-let formElement = document.querySelector(".popup__form");
+const formElement = document.querySelector(".popup__form");
 // инпуты
-let inputName = document.querySelector("#popup__input-name");
-let inputAbout = document.querySelector("#popup__input-about");
+const inputName = document.querySelector("#popup__input-name");
+const inputAbout = document.querySelector("#popup__input-about");
 // обработчик отправки формы
 function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
-  showPopup();
+  closePopup();
 }
 // слушатель сохранения формы
 formElement.addEventListener("submit", formSubmitHandler);
 // слушатели кнопок открытия/закрытия попапа редактирования профиля
 profileEditButton.addEventListener("click", showPopup);
-closeButton.addEventListener("click", closePopup);
+closePopupButton.addEventListener("click", closePopup);
