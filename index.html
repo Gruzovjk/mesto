@@ -88,12 +88,31 @@
         <fieldset class="popup__set">
           <h2 class="popup__title">Редактировать профиль</h2>
          <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__input-name" name="name" placeholder="Ваше имя" maxlength="40" required>
+            <input type="text" class="popup__input" id="popup__profile-name" name="name" placeholder="Ваше имя" maxlength="40" required>
           </label>
           <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__input-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
+            <input type="text" class="popup__input" id="popup__profile-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
           </label>
           <button type="submit" class="popup__save-button">Сохранить</button>
+        </fieldset>
+      </form>
+      <button type="button" class="popup__close-button"></button>
+    </div>
+  </div>
+
+      <!--Попап добавления фото-->
+  <div id="addCard" class="popup">
+    <div class="popup__container">
+      <form class="popup__form" name="card" novalidate>
+        <fieldset class="popup__set">
+          <h2 class="popup__title">Новое место</h2>
+         <label class="popup__container-field">
+            <input type="text" class="popup__input" id="popup__card-name" name="nameCard" placeholder="Название места" maxlength="40" required>
+          </label>
+          <label class="popup__container-field">
+            <input type="text" class="popup__input" id="popup__card-src" name="srcCard" placeholder="Ссылка на фото" maxlength="200" required>
+          </label>
+          <button type="submit" class="popup__save-button">Создать</button>
         </fieldset>
       </form>
       <button type="button" class="popup__close-button"></button>
