@@ -32,44 +32,44 @@
     <section class="elements">
       <ul class="elements__list">
         <li class="card">
-          <img src="./images/coliseum.jpg" alt="Ваше место" class="card__img">
+          <img src="./images/coliseum.jpg" alt="Ваше место" id="card__src" class="card__img">
           <div class="card__caption">
-            <h2 class="card__caption-text">Длинное название места</h2>
+            <h2 class="card__name">Длинное название места</h2>
             <button class="card__like-button" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/jungles.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
+            <h2 class="card__name">Место</h2>
             <button class="card__like-button" type="button" title="Мне нравится"></button>
           </div>
         </li>
         <li class="card">
           <img src="./images/lavender.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
+            <h2 class="card__name">Место</h2>
             <button class="card__like-button" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/oazis.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
+            <h2 class="card__name">Место</h2>
             <button class="card__like-button" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/waterfall.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
+            <h2 class="card__name">Место</h2>
             <button class="card__like-button" type="button" title="Мне нравится"></button>
           </div>  
         </li>
         <li class="card">
           <img src="./images/mountain-trail.jpg" alt="Ваше место" class="card__img">
           <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
+            <h2 class="card__name">Место</h2>
             <button class="card__like-button" type="button" title="Мне нравится"></button>
           </div>  
         </li>
@@ -88,7 +88,7 @@
         <fieldset class="popup__set">
           <h2 class="popup__title">Редактировать профиль</h2>
          <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__profile-name" name="name" placeholder="Ваше имя" maxlength="40" required>
+            <input type="text" class="popup__input" id="popup__profile-name" name="name" placeholder="Ваше имя" minlength="2" maxlength="40" required>
           </label>
           <label class="popup__container-field">
             <input type="text" class="popup__input" id="popup__profile-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
@@ -107,15 +107,24 @@
         <fieldset class="popup__set">
           <h2 class="popup__title">Новое место</h2>
          <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__card-name" name="nameCard" placeholder="Название места" maxlength="40" required>
+            <input type="text" class="popup__input" id="popup__card-name" name="nameCard" placeholder="Название места" minlength="2" maxlength="40" required>
           </label>
           <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__card-src" name="srcCard" placeholder="Ссылка на фото" maxlength="200" required>
+            <input type="text" class="popup__input" id="popup__card-src" name="srcCard" placeholder="Ссылка на фото" wmaxlength="200" required>
           </label>
           <button type="submit" class="popup__save-button">Создать</button>
         </fieldset>
       </form>
       <button type="button" class="popup__close-button"></button>
+    </div>
+  </div>
+
+      <!--Попап zoom фото-->
+  <div id="popupZoomImg" class="popup popup__zoom-img popup_opened">
+    <div class="popup__container popup__container-img">
+      <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt=" " class="popup__img">
+      <p class="popup__img-caption">Бла бла бла бла бла</p>
+      <button class="popup__close-button" type="button"></button>
     </div>
   </div>
   <script src="./scripts/popup.js"></script>
