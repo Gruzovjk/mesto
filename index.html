@@ -31,48 +31,16 @@
     <!--Фото-->
     <section class="elements">
       <ul class="elements__list">
-        <li class="card">
-          <img src="./images/coliseum.jpg" alt="Ваше место" id="card__src" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__name">Длинное название места</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/jungles.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__name">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img src="./images/lavender.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__name">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/oazis.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__name">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/waterfall.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__name">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/mountain-trail.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__name">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
+        <template id="cardTemplate">
+          <li class="card">
+            <img src="" alt="Ваше место" class="card__img">  
+            <div class="card__caption">
+              <h2 class="card__name"></h2>
+              <button class="card__like-button" type="button" title="Мне нравится"></button>
+            </div>
+            <button class="card__remove-button" type="button" title="Удалить место"></button>    
+          </li>
+        </template> 
       </ul>
     </section>
   </main>
@@ -110,7 +78,7 @@
             <input type="text" class="popup__input" id="popup__card-name" name="nameCard" placeholder="Название места" minlength="2" maxlength="40" required>
           </label>
           <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__card-src" name="srcCard" placeholder="Ссылка на фото" wmaxlength="200" required>
+            <input type="text" class="popup__input" id="popup__card-link" name="srcCard" placeholder="Ссылка на фото" wmaxlength="200" required>
           </label>
           <button type="submit" class="popup__save-button">Создать</button>
         </fieldset>
@@ -120,7 +88,7 @@
   </div>
 
       <!--Попап zoom фото-->
-  <div id="popupZoomImg" class="popup popup__zoom-img popup_opened">
+  <div id="zoomImg" class="popup popup__zoom-img">
     <div class="popup__container popup__container-img">
       <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt=" " class="popup__img">
       <p class="popup__img-caption">Бла бла бла бла бла</p>
