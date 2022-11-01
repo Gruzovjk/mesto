@@ -23,6 +23,7 @@
 @import url(../blocks/card/__img/card__img.css);
 @import url(../blocks/card/__name/card__name.css);
 @import url(../blocks/card/__like-button/card__like-button.css);
+@import url(../blocks/card/__like-button/_active/card__like-button_active.css);
 @import url(../blocks/card/__remove-button/card__remove-button.css);
 
 @import url(../blocks/popup/popup.css);

@@ -29,8 +29,6 @@ const profileAbout = document.querySelector(".profile__about");
 // CARDS
 const cardsContainer = document.querySelector(".elements__list");
 const cardTemplate = document.querySelector("#cardTemplate");
-const cardLikeButton = cardTemplate.querySelector(".card__like-button");
-const cardRemoveButton = cardTemplate.querySelector(".card__remove-button");
 
 const initialCards = [
   {
@@ -59,6 +57,27 @@ const initialCards = [
   },
 ];
 
+// удаление карточки
+const removeCard = (evt) => {
+  const target = evt.target;
+  //боремся со всплытием, останавливаемся на ближайшем тэге card
+  const currentListItemEl = target.closest(".card");
+  currentListItemEl.remove();
+};
+
+// лайк карточки
+const likeCard = (evt) => {
+  evt.target.classList.toggle("card__like-button_active");
+};
+
+// вешаем слушатели удаления и лайка
+const setEventListener = (el) => {
+  const deleteButton = el.querySelector(".card__remove-button");
+  deleteButton.addEventListener("click", removeCard);
+  const likeButton = el.querySelector(".card__like-button");
+  likeButton.addEventListener("click", likeCard);
+};
+
 // Получаем элементы cardTempate
 const getCardItemElement = (element) => {
   const el = cardTemplate.content.cloneNode(true).children[0]; // children по совету из лайвкодинга
@@ -69,6 +88,7 @@ const getCardItemElement = (element) => {
 // функия отрисовки card
 const renderCard = (element) => {
   const el = getCardItemElement(element);
+  setEventListener(el);
   cardsContainer.append(el);
 };
 
@@ -84,8 +104,13 @@ const getNewCardItemElement = () => {
 
 const addNewCard = (element) => {
   const el = getNewCardItemElement(element);
+  setEventListener(el);
   cardsContainer.prepend(el);
 };
+
+// удаление карточки
+
+// лайк карточки
 
 // popup's ФУНКЦИИ
 // открыть попап
@@ -95,6 +120,8 @@ const openEditProfile = function () {
   inputProfileAbout.value = profileAbout.textContent;
 };
 const openAddCard = () => {
+  inputCardName.value = "";
+  inputCardLink.value = "";
   addCard.classList.toggle("popup_opened");
 };
 const openZoomImg = () => {
