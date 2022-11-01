@@ -1,30 +1,35 @@
 // попапы
-const editProfile = document.querySelector("#editProfile");
-const addCard = document.querySelector("#addCard");
-const zoomImg = document.querySelector("#zoomImg");
+const popupEditProfile = document.querySelector("#editProfile");
+const popupAddCard = document.querySelector("#addCard");
+const popupZoomImg = document.querySelector("#zoomImg");
 
 // формы попап
-const formEditProfile = editProfile.querySelector(".popup__form");
-const formAddCard = addCard.querySelector(".popup__form");
+const formEditProfile = popupEditProfile.querySelector(".popup__form");
+const formAddCard = popupAddCard.querySelector(".popup__form");
 // инпуты
-const inputProfileName = editProfile.querySelector("#popup__profile-name");
-const inputProfileAbout = editProfile.querySelector("#popup__profile-about");
-const inputCardName = addCard.querySelector("#popup__card-name");
-const inputCardLink = addCard.querySelector("#popup__card-link");
+const inputProfileName = popupEditProfile.querySelector("#popup__profile-name");
+const inputProfileAbout = popupEditProfile.querySelector(
+  "#popup__profile-about"
+);
+const inputCardName = popupAddCard.querySelector("#popup__card-name");
+const inputCardLink = popupAddCard.querySelector("#popup__card-link");
 
 // кнопки открытия попапов
 const profileEditButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 
 // pop-up's buttons
-const closeEditProfileButton = editProfile.querySelector(
+const closeEditProfileButton = popupEditProfile.querySelector(
   ".popup__close-button"
 );
-const closeAddCardButton = addCard.querySelector(".popup__close-button");
-const closeZoomImgButton = zoomImg.querySelector(".popup__close-button");
+const closeAddCardButton = popupAddCard.querySelector(".popup__close-button");
+//const closeZoomImgButton = popupZoomImg.querySelector(".popup__close-button");
 //profile
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
+//zoom
+
+const zoomTemplate = document.querySelector("#zoomTemplate");
 
 // CARDS
 const cardsContainer = document.querySelector(".elements__list");
@@ -70,22 +75,48 @@ const likeCard = (evt) => {
   evt.target.classList.toggle("card__like-button_active");
 };
 
-// вешаем слушатели удаления и лайка
+// открытие зума
+const openZoomImg = (evt) => {
+  const el = zoomTemplate.content.cloneNode(true);
+  el.querySelector(".popup__img").src = evt.target.src;
+  el.querySelector(".popup__img-caption").textContent = evt.target.alt;
+  setEventListenerForPopupZoomImg(el);
+  popupZoomImg.prepend(el);
+  popupZoomImg.classList.toggle("popup_opened");
+};
+
+//закрытие зума
+const closePopupZoomImg = (evt) => {
+  const target = evt.target;
+  const currentListItemEl = target.closest(".popup__container");
+  currentListItemEl.remove();
+  popupZoomImg.classList.toggle("popup_opened");
+};
+
+const setEventListenerForPopupZoomImg = (el) => {
+  const closeButton = el.querySelector(".popup__close-button");
+  closeButton.addEventListener("click", closePopupZoomImg);
+};
+
+// вешаем слушатели удаления, лайка и открытия зум попапа
 const setEventListener = (el) => {
   const deleteButton = el.querySelector(".card__remove-button");
   deleteButton.addEventListener("click", removeCard);
   const likeButton = el.querySelector(".card__like-button");
   likeButton.addEventListener("click", likeCard);
+  const zoomButton = el.querySelector(".card__img");
+  zoomButton.addEventListener("click", openZoomImg);
 };
 
-// Получаем элементы cardTempate
+// render
 const getCardItemElement = (element) => {
   const el = cardTemplate.content.cloneNode(true).children[0]; // children по совету из лайвкодинга
   el.querySelector(".card__name").textContent = element.name;
   el.querySelector(".card__img").src = element.link;
+  el.querySelector(".card__img").alt = element.name;
   return el;
 };
-// функия отрисовки card
+
 const renderCard = (element) => {
   const el = getCardItemElement(element);
   setEventListener(el);
@@ -94,11 +125,12 @@ const renderCard = (element) => {
 
 initialCards.forEach(renderCard);
 
-// добавление нового места
+// add new card
 const getNewCardItemElement = () => {
   const el = cardTemplate.content.cloneNode(true).children[0];
   el.querySelector(".card__name").textContent = inputCardName.value;
   el.querySelector(".card__img").src = inputCardLink.value;
+  el.querySelector(".card__img").alt = inputCardName.value;
   return el;
 };
 
@@ -108,35 +140,29 @@ const addNewCard = (element) => {
   cardsContainer.prepend(el);
 };
 
-// удаление карточки
-
-// лайк карточки
-
 // popup's ФУНКЦИИ
 // открыть попап
 const openEditProfile = function () {
-  editProfile.classList.toggle("popup_opened");
+  popupEditProfile.classList.toggle("popup_opened");
   inputProfileName.value = profileName.textContent;
   inputProfileAbout.value = profileAbout.textContent;
 };
 const openAddCard = () => {
   inputCardName.value = "";
   inputCardLink.value = "";
-  addCard.classList.toggle("popup_opened");
+  popupAddCard.classList.toggle("popup_opened");
 };
-const openZoomImg = () => {
-  zoomImg.classList.toggle("popup_opened");
-};
+
 // закрыть попап
 const closeEditProfile = () => {
-  editProfile.classList.toggle("popup_opened");
+  popupEditProfile.classList.toggle("popup_opened");
 };
 const closeAddCard = () => {
-  addCard.classList.toggle("popup_opened");
+  popupAddCard.classList.toggle("popup_opened");
 };
-const closeZoomImg = () => {
-  zoomImg.classList.toggle("popup_opened");
-};
+// const closeZoomImg = () => {
+//   popupZoomImg.classList.toggle("popup_opened");
+// };
 
 //-------------------------
 
@@ -164,4 +190,4 @@ profileEditButton.addEventListener("click", openEditProfile);
 closeEditProfileButton.addEventListener("click", closeEditProfile);
 addCardButton.addEventListener("click", openAddCard);
 closeAddCardButton.addEventListener("click", closeAddCard);
-closeZoomImgButton.addEventListener("click", closeZoomImg);
+//closeZoomImgButton.addEventListener("click", closeZoomImg);

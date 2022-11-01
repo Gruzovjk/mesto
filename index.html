@@ -89,11 +89,13 @@
 
       <!--Попап zoom фото-->
   <div id="zoomImg" class="popup popup__zoom-img">
-    <div class="popup__container popup__container-img">
-      <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt=" " class="popup__img">
-      <p class="popup__img-caption">Бла бла бла бла бла</p>
-      <button class="popup__close-button" type="button"></button>
-    </div>
+    <template id="zoomTemplate">
+      <div class="popup__container popup__container-img">
+        <img src="" alt="" class="popup__img">
+        <p class="popup__img-caption"></p>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </template> 
   </div>
   <script src="./scripts/popup.js"></script>
 </body>
