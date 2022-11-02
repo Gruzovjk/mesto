@@ -23,7 +23,6 @@ const closeEditProfileButton = popupEditProfile.querySelector(
   ".popup__close-button"
 );
 const closeAddCardButton = popupAddCard.querySelector(".popup__close-button");
-//const closeZoomImgButton = popupZoomImg.querySelector(".popup__close-button");
 //profile
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
@@ -86,19 +85,19 @@ const openZoomImg = (evt) => {
 };
 
 //закрытие зума
-const closePopupZoomImg = (evt) => {
+const closeZoomImg = (evt) => {
   const target = evt.target;
   const currentListItemEl = target.closest(".popup__container");
-  currentListItemEl.remove();
+  currentListItemEl.replaceChildren();
   popupZoomImg.classList.toggle("popup_opened");
 };
 
 const setEventListenerForPopupZoomImg = (el) => {
   const closeButton = el.querySelector(".popup__close-button");
-  closeButton.addEventListener("click", closePopupZoomImg);
+  closeButton.addEventListener("click", closeZoomImg);
 };
 
-// вешаем слушатели удаления, лайка и открытия зум попапа
+// слушатели удаления, лайка и открытия зум попапа
 const setEventListener = (el) => {
   const deleteButton = el.querySelector(".card__remove-button");
   deleteButton.addEventListener("click", removeCard);
@@ -160,9 +159,6 @@ const closeEditProfile = () => {
 const closeAddCard = () => {
   popupAddCard.classList.toggle("popup_opened");
 };
-// const closeZoomImg = () => {
-//   popupZoomImg.classList.toggle("popup_opened");
-// };
 
 //-------------------------
 
@@ -190,4 +186,3 @@ profileEditButton.addEventListener("click", openEditProfile);
 closeEditProfileButton.addEventListener("click", closeEditProfile);
 addCardButton.addEventListener("click", openAddCard);
 closeAddCardButton.addEventListener("click", closeAddCard);
-//closeZoomImgButton.addEventListener("click", closeZoomImg);
