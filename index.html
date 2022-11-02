@@ -21,9 +21,9 @@
     <section class="profile">
         <img src="./images/avatar_kusto.svg" title="Ваш аватар" alt="Аватар" class="profile__avatar-img">
       <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто Бельмандо</h1>
+        <h1 class="profile__name">Ваше имя</h1>
         <button class="profile__edit-button" type="button" title="Редактировать профиль"></button>
-        <p class="profile__about">Исследователь собачих равнин и морских баребухов</p>
+        <p class="profile__about">Расскажите о себе</p>
       </div>
       <button class="profile__add-button" type="button" title="Добавить новое место"></button>
     </section>
@@ -31,48 +31,16 @@
     <!--Фото-->
     <section class="elements">
       <ul class="elements__list">
-        <li class="card">
-          <img src="./images/coliseum.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__caption-text">Длинное название места</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/jungles.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>
-        </li>
-        <li class="card">
-          <img src="./images/lavender.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/oazis.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/waterfall.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
-        <li class="card">
-          <img src="./images/mountain-trail.jpg" alt="Ваше место" class="card__img">
-          <div class="card__caption">
-            <h2 class="card__caption-text">Место</h2>
-            <button class="card__like-button" type="button" title="Мне нравится"></button>
-          </div>  
-        </li>
+        <template id="cardTemplate">
+          <li class="card">
+            <img src="" alt="Ваше место" class="card__img">  
+            <div class="card__caption">
+              <h2 class="card__name"></h2>
+              <button class="card__like-button" type="button" title="Мне нравится"></button>
+            </div>
+            <button class="card__remove-button" type="button" title="Удалить место"></button>    
+          </li>
+        </template> 
       </ul>
     </section>
   </main>
@@ -88,16 +56,46 @@
         <fieldset class="popup__set">
           <h2 class="popup__title">Редактировать профиль</h2>
          <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__input-name" name="name" placeholder="Ваше имя" maxlength="40" required>
+            <input type="text" class="popup__input" id="popup__profile-name" name="name" placeholder="Ваше имя" minlength="2" maxlength="40" required>
           </label>
           <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__input-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
+            <input type="text" class="popup__input" id="popup__profile-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
           </label>
           <button type="submit" class="popup__save-button">Сохранить</button>
         </fieldset>
       </form>
       <button type="button" class="popup__close-button"></button>
     </div>
+  </div>
+
+      <!--Попап добавления фото-->
+  <div id="addCard" class="popup">
+    <div class="popup__container">
+      <form class="popup__form" name="card" novalidate>
+        <fieldset class="popup__set">
+          <h2 class="popup__title">Новое место</h2>
+         <label class="popup__container-field">
+            <input type="text" class="popup__input" id="popup__card-name" name="nameCard" placeholder="Название места" minlength="2" maxlength="40" required>
+          </label>
+          <label class="popup__container-field">
+            <input type="text" class="popup__input" id="popup__card-link" name="srcCard" placeholder="Ссылка на фото" wmaxlength="200" required>
+          </label>
+          <button type="submit" class="popup__save-button">Создать</button>
+        </fieldset>
+      </form>
+      <button type="button" class="popup__close-button"></button>
+    </div>
+  </div>
+
+      <!--Попап zoom фото-->
+  <div id="zoomImg" class="popup">
+    <template id="zoomTemplate">
+      <div class="popup__container popup__container-img">
+        <img src="" alt="" class="popup__img">
+        <p class="popup__img-caption"></p>
+      <button class="popup__close-button" type="button"></button>
+      </div>
+    </template> 
   </div>
   <script src="./scripts/popup.js"></script>
 </body>
