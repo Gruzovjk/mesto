@@ -81,6 +81,7 @@ const openZoomImg = (evt) => {
   el.querySelector(".popup__img-caption").textContent = evt.target.alt;
   setEventListenerForPopupZoomImg(el);
   popupZoomImg.prepend(el);
+  popupZoomImg.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
   popupZoomImg.classList.toggle("popup_opened");
 };
 
