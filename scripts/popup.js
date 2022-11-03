@@ -29,8 +29,10 @@ const profileAbout = document.querySelector(".profile__about");
 //zoom
 
 // CARDS
-const cardsContainer = document.querySelector(".elements__list");
-const cardTemplate = document.querySelector(".card__template");
+const cardContainer = document.querySelector(".elements__list");
+const cardTemplate = document
+  .querySelector(".card__template")
+  .content.querySelector(".card");
 
 // удаление карточки
 const removeCard = (evt) => {
@@ -44,45 +46,60 @@ const likeCard = (evt) => {
   evt.target.classList.toggle("card__like-button_active");
 };
 
-// слушатели удаления, лайка и открытия зум попапа
-const setEventListener = (el) => {
-  const deleteButton = el.querySelector(".card__remove-button");
+// // слушатели удаления, лайка и открытия зум попапа
+// const setEventListener = (el) => {
+//   const deleteButton = el.querySelector(".card__remove-button");
+//   deleteButton.addEventListener("click", removeCard);
+//   const likeButton = el.querySelector(".card__like-button");
+//   likeButton.addEventListener("click", likeCard);
+// };
+
+const renderCard = (element) => {
+  //клонируем контент карточки
+  const cardElement = cardTemplate.cloneNode(true);
+  // вешаем слушатели на кнопки
+  const deleteButton = cardElement.querySelector(".card__remove-button");
   deleteButton.addEventListener("click", removeCard);
-  const likeButton = el.querySelector(".card__like-button");
+  const likeButton = cardElement.querySelector(".card__like-button");
   likeButton.addEventListener("click", likeCard);
+  //отрисовка карточек из массива
+  cardElement.querySelector(".card__name").textContent = element.name;
+  cardElement.querySelector(".card__img").src = element.link;
+  cardElement.querySelector(".card__img").alt = element.name;
+  cardContainer.prepend(cardElement);
 };
 
 // render
-const getCardItemElement = (element) => {
-  const el = cardTemplate.content.cloneNode(true).children[0]; // children по совету из лайвкодинга
-  el.querySelector(".card__name").textContent = element.name;
-  el.querySelector(".card__img").src = element.link;
-  el.querySelector(".card__img").alt = element.name;
-  return el;
-};
+// const getCardItemElement = (element) => {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   cardElement.querySelector(".card__name").textContent = element.name;
+//   cardElement.querySelector(".card__img").src = element.link;
+//   cardElement.querySelector(".card__img").alt = element.name;
+//   return cardElement;
+// };
 
-const renderCard = (element) => {
-  const el = getCardItemElement(element);
-  setEventListener(el);
-  cardsContainer.append(el);
-};
+// const renderCard = (element) => {
+//   const el = (element) => {};
+//   setEventListener(el);
+//   cardContainer.append(el);
+// };
 
 initialCards.forEach(renderCard);
 
 // add new card
-const getNewCardItemElement = () => {
-  const el = cardTemplate.content.cloneNode(true).children[0];
-  el.querySelector(".card__name").textContent = inputCardName.value;
-  el.querySelector(".card__img").src = inputCardLink.value;
-  el.querySelector(".card__img").alt = inputCardName.value;
-  return el;
-};
+// const getNewCardItemElement = () => {
+//   const el = cardTemplate.content.cloneNode(true).children[0];
+//   el.querySelector(".card__name").textContent = inputCardName.value;
+//   el.querySelector(".card__img").src = inputCardLink.value;
+//   el.querySelector(".card__img").alt = inputCardName.value;
+//   return el;
+// };
 
-const addNewCard = (element) => {
-  const el = getNewCardItemElement(element);
-  setEventListener(el);
-  cardsContainer.prepend(el);
-};
+// const addNewCard = (element) => {
+//   const el = getNewCardItemElement(element);
+//   setEventListener(el);
+//   cardContainer.prepend(el);
+// };
 
 // popup's ФУНКЦИИ
 // открыть попап
@@ -117,7 +134,11 @@ const handleFormEditProfile = (evt) => {
 };
 const handleFormAddCard = (evt) => {
   evt.preventDefault();
-  addNewCard();
+  const element = {
+    name: inputCardName.value,
+    link: inputCardLink.value,
+  };
+  renderCard(element);
   closeAddCard();
 };
 
