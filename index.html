@@ -31,7 +31,7 @@
     <!--Фото-->
     <section class="elements">
       <ul class="elements__list">
-        <template id="cardTemplate">
+        <template class="card__template">
           <li class="card">
             <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="Ваше место" class="card__img">  
             <div class="card__caption">
@@ -50,16 +50,16 @@
   </footer>
 
       <!--Попап редактирование профиля-->
-  <div id="editProfile" class="popup">
+  <div class="popup popup_type_profile">
     <div class="popup__container">
       <form class="popup__form" name="profile" novalidate>
         <fieldset class="popup__set">
           <h2 class="popup__title">Редактировать профиль</h2>
          <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__profile-name" name="name" placeholder="Ваше имя" minlength="2" maxlength="40" required>
+            <input type="text" class="popup__input popup__profile-name" name="name" placeholder="Ваше имя" minlength="2" maxlength="40" required>
           </label>
           <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__profile-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
+            <input type="text" class="popup__input popup__profile-about" name="about" placeholder="Расскажите о себе" maxlength="200" required>
           </label>
           <button type="submit" class="popup__save-button">Сохранить</button>
         </fieldset>
@@ -69,16 +69,16 @@
   </div>
 
       <!--Попап добавления фото-->
-  <div id="addCard" class="popup">
+  <div class="popup popup_type_card-add">
     <div class="popup__container">
       <form class="popup__form" name="card" novalidate>
         <fieldset class="popup__set">
           <h2 class="popup__title">Новое место</h2>
          <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__card-name" name="nameCard" placeholder="Название места" minlength="2" maxlength="40" required>
+            <input type="text" class="popup__input popup__card-name" name="nameCard" placeholder="Название места" minlength="2" maxlength="40" required>
           </label>
           <label class="popup__container-field">
-            <input type="text" class="popup__input" id="popup__card-link" name="srcCard" placeholder="Ссылка на фото" wmaxlength="200" required>
+            <input type="text" class="popup__input popup__card-link" name="srcCard" placeholder="Ссылка на фото" maxlength="200" required>
           </label>
           <button type="submit" class="popup__save-button">Создать</button>
         </fieldset>
@@ -88,15 +88,14 @@
   </div>
 
       <!--Попап zoom фото-->
-  <div id="zoomImg" class="popup">
-    <template id="zoomTemplate">
-      <div class="popup__container popup__container-img">
-        <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="" class="popup__img">
-        <p class="popup__img-caption"></p>
+  <div class="popup popup_type_img">
+    <div class="popup__container popup__container-img">
+      <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="Какая-то картинка" class="popup__img">
+      <p class="popup__img-caption"></p>
       <button class="popup__close-button" type="button"></button>
-      </div>
-    </template> 
+    </div>
   </div>
+  <script src="./scripts/cards.js"></script>
   <script src="./scripts/popup.js"></script>
 </body>
 </html>
