@@ -34,121 +34,74 @@ const cardTemplate = document
   .querySelector(".card__template")
   .content.querySelector(".card");
 
-// удаление карточки
+// открыть попап
+const openPopup = (element) => {
+  element.classList.toggle("popup_opened");
+};
+
+// закрыть попап
+const closePopup = (element) => {
+  element.classList.toggle("popup_opened");
+};
+
 const removeCard = (evt) => {
   const target = evt.target;
   const currentListItemEl = target.closest(".card");
   currentListItemEl.remove();
 };
-
-// лайк карточки
 const likeCard = (evt) => {
   evt.target.classList.toggle("card__like-button_active");
 };
 
-// // слушатели удаления, лайка и открытия зум попапа
-// const setEventListener = (el) => {
-//   const deleteButton = el.querySelector(".card__remove-button");
-//   deleteButton.addEventListener("click", removeCard);
-//   const likeButton = el.querySelector(".card__like-button");
-//   likeButton.addEventListener("click", likeCard);
-// };
-
 const renderCard = (element) => {
-  //клонируем контент карточки
   const cardElement = cardTemplate.cloneNode(true);
-  // вешаем слушатели на кнопки
   const deleteButton = cardElement.querySelector(".card__remove-button");
   deleteButton.addEventListener("click", removeCard);
   const likeButton = cardElement.querySelector(".card__like-button");
   likeButton.addEventListener("click", likeCard);
-  //отрисовка карточек из массива
   cardElement.querySelector(".card__name").textContent = element.name;
   cardElement.querySelector(".card__img").src = element.link;
   cardElement.querySelector(".card__img").alt = element.name;
   cardContainer.prepend(cardElement);
 };
 
-// render
-// const getCardItemElement = (element) => {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   cardElement.querySelector(".card__name").textContent = element.name;
-//   cardElement.querySelector(".card__img").src = element.link;
-//   cardElement.querySelector(".card__img").alt = element.name;
-//   return cardElement;
-// };
-
-// const renderCard = (element) => {
-//   const el = (element) => {};
-//   setEventListener(el);
-//   cardContainer.append(el);
-// };
-
 initialCards.forEach(renderCard);
 
-// add new card
-// const getNewCardItemElement = () => {
-//   const el = cardTemplate.content.cloneNode(true).children[0];
-//   el.querySelector(".card__name").textContent = inputCardName.value;
-//   el.querySelector(".card__img").src = inputCardLink.value;
-//   el.querySelector(".card__img").alt = inputCardName.value;
-//   return el;
-// };
-
-// const addNewCard = (element) => {
-//   const el = getNewCardItemElement(element);
-//   setEventListener(el);
-//   cardContainer.prepend(el);
-// };
-
-// popup's ФУНКЦИИ
-// открыть попап
-const openEditProfile = function () {
-  popupEditProfile.classList.toggle("popup_opened");
-  inputProfileName.value = profileName.textContent;
-  inputProfileAbout.value = profileAbout.textContent;
-};
-const openAddCard = () => {
-  inputCardName.value = "";
-  inputCardLink.value = "";
-  popupAddCard.classList.toggle("popup_opened");
-};
-
-// закрыть попап
-const closeEditProfile = () => {
-  popupEditProfile.classList.toggle("popup_opened");
-};
-const closeAddCard = () => {
-  popupAddCard.classList.toggle("popup_opened");
-};
-
-//-------------------------
-
-// ОБРАБОТЧИКИ
-// обработчики отправки форм
+// Handlers
 const handleFormEditProfile = (evt) => {
   evt.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileAbout.textContent = inputProfileAbout.value;
-  closeEditProfile();
+  closePopup(popupEditProfile);
 };
 const handleFormAddCard = (evt) => {
   evt.preventDefault();
-  const element = {
+  const el = {
     name: inputCardName.value,
     link: inputCardLink.value,
   };
-  renderCard(element);
-  closeAddCard();
+  renderCard(el);
+  closePopup(popupAddCard);
 };
 
-// СЛУШАТЕЛИ
-// слушатели сохранения формы
+// Listeners
+// _forms
 formEditProfile.addEventListener("submit", handleFormEditProfile);
 formAddCard.addEventListener("submit", handleFormAddCard);
-
-// слушатели кнопок
-btnOpenEditProfile.addEventListener("click", openEditProfile);
-btnCloseEditProfile.addEventListener("click", closeEditProfile);
-btnOpenAddCard.addEventListener("click", openAddCard);
-btnCloseAddCard.addEventListener("click", closeAddCard);
+// _buttons
+btnOpenEditProfile.addEventListener("click", () => {
+  inputProfileName.value = profileName.textContent;
+  inputProfileAbout.value = profileAbout.textContent;
+  openPopup(popupEditProfile);
+});
+btnOpenAddCard.addEventListener("click", () => {
+  inputCardName.value = "";
+  inputCardLink.value = "";
+  openPopup(popupAddCard);
+});
+btnCloseEditProfile.addEventListener("click", () => {
+  closePopup(popupEditProfile);
+});
+btnCloseAddCard.addEventListener("click", () => {
+  closePopup(popupAddCard);
+});
