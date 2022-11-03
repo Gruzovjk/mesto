@@ -1,70 +1,40 @@
 // попапы
-const popupEditProfile = document.querySelector("#editProfile");
-const popupAddCard = document.querySelector("#addCard");
-const popupZoomImg = document.querySelector("#zoomImg");
+const popupEditProfile = document.querySelector(".popup_type_profile");
+const popupAddCard = document.querySelector(".popup_type_card-add");
+const popupZoomImg = document.querySelector(".popup_type_img");
 
 // формы попап
 const formEditProfile = popupEditProfile.querySelector(".popup__form");
 const formAddCard = popupAddCard.querySelector(".popup__form");
 // инпуты
-const inputProfileName = popupEditProfile.querySelector("#popup__profile-name");
+const inputProfileName = popupEditProfile.querySelector(".popup__profile-name");
 const inputProfileAbout = popupEditProfile.querySelector(
-  "#popup__profile-about"
+  ".popup__profile-about"
 );
-const inputCardName = popupAddCard.querySelector("#popup__card-name");
-const inputCardLink = popupAddCard.querySelector("#popup__card-link");
+const inputCardName = popupAddCard.querySelector(".popup__card-name");
+const inputCardLink = popupAddCard.querySelector(".popup__card-link");
 
 // кнопки открытия попапов
-const profileEditButton = document.querySelector(".profile__edit-button");
-const addCardButton = document.querySelector(".profile__add-button");
+const btnOpenEditProfile = document.querySelector(".profile__edit-button");
+const btnOpenAddCard = document.querySelector(".profile__add-button");
 
 // pop-up's buttons
-const closeEditProfileButton = popupEditProfile.querySelector(
+const btnCloseEditProfile = popupEditProfile.querySelector(
   ".popup__close-button"
 );
-const closeAddCardButton = popupAddCard.querySelector(".popup__close-button");
+const btnCloseAddCard = popupAddCard.querySelector(".popup__close-button");
 //profile
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 //zoom
 
-const zoomTemplate = document.querySelector("#zoomTemplate");
-
 // CARDS
 const cardsContainer = document.querySelector(".elements__list");
-const cardTemplate = document.querySelector("#cardTemplate");
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+const cardTemplate = document.querySelector(".card__template");
 
 // удаление карточки
 const removeCard = (evt) => {
   const target = evt.target;
-  //боремся со всплытием, останавливаемся на ближайшем тэге card
   const currentListItemEl = target.closest(".card");
   currentListItemEl.remove();
 };
@@ -74,38 +44,12 @@ const likeCard = (evt) => {
   evt.target.classList.toggle("card__like-button_active");
 };
 
-// открытие зума
-const openZoomImg = (evt) => {
-  const el = zoomTemplate.content.cloneNode(true);
-  el.querySelector(".popup__img").src = evt.target.src;
-  el.querySelector(".popup__img-caption").textContent = evt.target.alt;
-  setEventListenerForPopupZoomImg(el);
-  popupZoomImg.prepend(el);
-  popupZoomImg.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-  popupZoomImg.classList.toggle("popup_opened");
-};
-
-//закрытие зума
-const closeZoomImg = (evt) => {
-  const target = evt.target;
-  const currentListItemEl = target.closest(".popup__container");
-  currentListItemEl.replaceChildren();
-  popupZoomImg.classList.toggle("popup_opened");
-};
-
-const setEventListenerForPopupZoomImg = (el) => {
-  const closeButton = el.querySelector(".popup__close-button");
-  closeButton.addEventListener("click", closeZoomImg);
-};
-
 // слушатели удаления, лайка и открытия зум попапа
 const setEventListener = (el) => {
   const deleteButton = el.querySelector(".card__remove-button");
   deleteButton.addEventListener("click", removeCard);
   const likeButton = el.querySelector(".card__like-button");
   likeButton.addEventListener("click", likeCard);
-  const zoomButton = el.querySelector(".card__img");
-  zoomButton.addEventListener("click", openZoomImg);
 };
 
 // render
@@ -183,7 +127,7 @@ formEditProfile.addEventListener("submit", handleFormEditProfile);
 formAddCard.addEventListener("submit", handleFormAddCard);
 
 // слушатели кнопок
-profileEditButton.addEventListener("click", openEditProfile);
-closeEditProfileButton.addEventListener("click", closeEditProfile);
-addCardButton.addEventListener("click", openAddCard);
-closeAddCardButton.addEventListener("click", closeAddCard);
+btnOpenEditProfile.addEventListener("click", openEditProfile);
+btnCloseEditProfile.addEventListener("click", closeEditProfile);
+btnOpenAddCard.addEventListener("click", openAddCard);
+btnCloseAddCard.addEventListener("click", closeAddCard);
