@@ -26,10 +26,10 @@ const btnCloseAddCard = popupAddCard.querySelector(".popup__close-button");
 const btnCloseImg = popupImg.querySelector(".popup__close-button");
 //fncs
 const openPopup = (element) => {
-  element.classList.toggle("popup_opened");
+  element.classList.add("popup_opened");
 };
 const closePopup = (element) => {
-  element.classList.toggle("popup_opened");
+  element.classList.remove("popup_opened");
 };
 const renderCard = (element) => {
   const cardElement = cardTemplate.cloneNode(true);
@@ -53,9 +53,13 @@ const renderCard = (element) => {
   cardElement.querySelector(".card__name").textContent = element.name;
   cardElement.querySelector(".card__img").src = element.link;
   cardElement.querySelector(".card__img").alt = element.name;
-  cardContainer.prepend(cardElement);
+  return cardElement;
 };
-initialCards.forEach(renderCard);
+const addCard = (element) => {
+  cardContainer.prepend(renderCard(element));
+};
+initialCards.forEach(addCard);
+
 // handlers
 const handleFormEditProfile = (evt) => {
   evt.preventDefault();
@@ -69,7 +73,7 @@ const handleFormAddCard = (evt) => {
     name: inputCardName.value,
     link: inputCardLink.value,
   };
-  renderCard(el);
+  addCard(el);
   closePopup(popupAddCard);
 };
 // listeners
