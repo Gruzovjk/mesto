@@ -1,4 +1,5 @@
 // DOM-elements
+const popup = document.querySelectorAll(".popup");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 const popupEditProfile = document.querySelector(".popup_type_profile");
@@ -76,6 +77,20 @@ const handleFormAddCard = (evt) => {
   addCard(el);
   closePopup(popupAddCard);
 };
+
+const handleOverlayClose = (evt) => {
+  if (evt.target.classList.contains("popup")) {
+    closePopup(evt.target);
+  }
+};
+
+const hendleEscClose = (evt) => {
+  if (evt.key === "Escape" || evt.key === "Esc") {
+    closePopup(popupImg);
+    closePopup(popupEditProfile);
+    closePopup(popupAddCard);
+  }
+};
 // listeners
 formEditProfile.addEventListener("submit", handleFormEditProfile);
 formAddCard.addEventListener("submit", handleFormAddCard);
@@ -98,3 +113,28 @@ btnCloseAddCard.addEventListener("click", () => {
 btnCloseImg.addEventListener("click", () => {
   closePopup(popupImg);
 });
+
+document.addEventListener("keydown", hendleEscClose);
+document.addEventListener("click", handleOverlayClose);
+
+// document.addEventListener("keydown", (evt) => {
+//   if (evt.key === "Escape" || evt.key === "Esc") {
+//     closePopup(popupImg);
+//     closePopup(popupEditProfile);
+//     closePopup(popupAddCard);
+//   }
+// });
+
+// document.addEventListener("click", (evt) => {
+//   if (evt.target.classList.contains("popup")) {
+//     closePopup(evt.target);
+//   }
+// });
+
+// popup.forEach(
+//   addEventListener("click", (evt) => {
+//     if (evt.target.classList.contains("popup")) {
+//       closePopup(evt.target);
+//     }
+//   })
+// );
