@@ -27,3 +27,7 @@
     min-height: 46px;
   }
 }
+
+.popup__save-button:disabled {
+  background-color: bisque;
+}
