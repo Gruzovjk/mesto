@@ -27,3 +27,9 @@
     min-height: 46px;
   }
 }
+
+.popup__save-button:disabled {
+  background: white;
+  color: #e5e5e5;
+  border: 1px solid;
+}
