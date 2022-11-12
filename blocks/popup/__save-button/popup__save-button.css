@@ -29,5 +29,7 @@
 }
 
 .popup__save-button:disabled {
-  background-color: bisque;
+  background: white;
+  color: #e5e5e5;
+  border: 1px solid;
 }

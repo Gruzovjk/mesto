@@ -38,7 +38,7 @@ const renderCard = (element) => {
     const currentListItemEl = target.closest(".card");
     currentListItemEl.remove();
   });
-  // ?
+  // ? вопрос внизу, в слушателях
   // const likeButton = cardElement.querySelector(".card__like-button");
   // likeButton.addEventListener("click", (evt) => {
   //   evt.target.classList.toggle("card__like-button_active");
@@ -122,8 +122,11 @@ btnCloseImg.addEventListener("click", () => {
 document.addEventListener("keydown", handleClosingOnEsc);
 document.addEventListener("mousedown", handleClosingOnOverlay);
 // ?
+// корректно ли сделать кнопки карточки таким образом
+// или лучше оставить отрисовку карточки целой?
 document.addEventListener("click", handleLikeCard);
 
+//
 // document.addEventListener("keydown", (evt) => {
 //   if (evt.key === "Escape" || evt.key === "Esc") {
 //     closePopup(popupImgCard);
@@ -138,6 +141,7 @@ document.addEventListener("click", handleLikeCard);
 //   }
 // });
 
+// так тоже работает, но с ошибкой
 // popup.forEach(
 //   addEventListener("click", (evt) => {
 //     if (evt.target.classList.contains("popup")) {
