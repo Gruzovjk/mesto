@@ -57,11 +57,11 @@
           <h2 class="popup__title">Редактировать профиль</h2>
          <label class="popup__container-field">
             <input type="text" id='input_profile-name' class="popup__input popup__profile-name" name="name" placeholder="Ваше имя" minlength="2" maxlength="40" required>
-            <span class="popup__input-error input_profile-name_error"></span>
+            <span class="popup__input-error" id="input_profile-name-error"></span>
           </label>
           <label class="popup__container-field">
             <input type="text" id='input_profile-about' class="popup__input popup__profile-about" name="about" placeholder="Расскажите о себе" minlength="2" maxlength="200" required>
-            <span class="popup__input-error input_profile-about_error"></span>
+            <span class="popup__input-error" id="input_profile-name-error"></span>
           </label>
           <button type="submit" class="popup__save-button">Сохранить</button>
         </fieldset>
@@ -78,11 +78,11 @@
           <h2 class="popup__title">Новое место</h2>
          <label class="popup__container-field">
             <input type="text" id='input_card-name' class="popup__input popup__card-name" name="name" placeholder="Название места" minlength="2" maxlength="30" required>
-            <span class="popup__input-error input_card-name_error"></span>
+            <span class="popup__input-error" id="input_card-name-error"></span>
           </label>
           <label class="popup__container-field">
             <input type="url" pattern="([^\s]+(?=\.(jpg|gif|png))\.\2)" id='input_card-src' class="popup__input popup__card-link" name="src" placeholder="Ссылка на фото (формата .jpg, .gif или .png)" required>
-            <span class="popup__input-error input_card-src_error"></span>
+            <span class="popup__input-error" id="input_card-src-error"></span>
           </label>
           <button type="submit" class="popup__save-button">Создать</button>
         </fieldset>
