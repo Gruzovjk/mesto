@@ -22,13 +22,15 @@ const enableValidation = () => {
 };
 
 const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  //const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = inputElement.nextElementSibling;
   inputElement.classList.add(settings.inputErrorClass);
   errorElement.textContent = errorMessage;
 };
 
 const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  //const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = inputElement.nextElementSibling;
   inputElement.classList.remove(settings.inputErrorClass);
   errorElement.textContent = "";
 };
