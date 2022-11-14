@@ -1,5 +1,5 @@
 // DOM-elements
-// const popup = Array.from(document.querySelectorAll(".popup"));
+const popups = Array.from(document.querySelectorAll(".popup"));
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 const popupEditProfile = document.querySelector(".popup_type_profile");
@@ -12,6 +12,8 @@ const cardTemplate = document
   .querySelector(".card__template")
   .content.querySelector(".card");
 // popup's elements
+const popupImg = popupImgCard.querySelector(".popup__img");
+const popupImgCaption = popupImgCard.querySelector(".popup__img-caption");
 const formEditProfile = document.forms.profile;
 const formAddCard = document.forms.card;
 const inputProfileName = formEditProfile.elements.name;
@@ -26,33 +28,35 @@ const btnCloseImg = popupImgCard.querySelector(".popup__close-button");
 //fncs
 const openPopup = (element) => {
   element.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEsc);
 };
 const closePopup = (element) => {
   element.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeByEsc);
 };
 const renderCard = (element) => {
   const cardElement = cardTemplate.cloneNode(true);
+  const cardName = cardElement.querySelector(".card__name");
+  const cardImg = cardElement.querySelector(".card__img");
   const deleteButton = cardElement.querySelector(".card__remove-button");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  cardName.textContent = element.name;
+  cardImg.src = element.link;
+  cardImg.alt = element.name;
   deleteButton.addEventListener("click", (evt) => {
     const target = evt.target;
     const currentListItemEl = target.closest(".card");
     currentListItemEl.remove();
   });
-  // ? вопрос внизу, в слушателях
-  // const likeButton = cardElement.querySelector(".card__like-button");
-  // likeButton.addEventListener("click", (evt) => {
-  //   evt.target.classList.toggle("card__like-button_active");
-  // });
-  const imgOpen = cardElement.querySelector(".card__img");
-  imgOpen.addEventListener("click", () => {
-    popupImgCard.querySelector(".popup__img").src = imgOpen.src;
-    popupImgCard.querySelector(".popup__img").alt = imgOpen.alt;
-    popupImgCard.querySelector(".popup__img-caption").textContent = imgOpen.alt;
+  likeButton.addEventListener("click", (evt) => {
+    evt.target.classList.toggle("card__like-button_active");
+  });
+  cardImg.addEventListener("click", () => {
+    popupImg.src = cardImg.src;
+    popupImg.alt = cardImg.alt;
+    popupImgCaption.textContent = cardImg.alt;
     openPopup(popupImgCard);
   });
-  cardElement.querySelector(".card__name").textContent = element.name;
-  cardElement.querySelector(".card__img").src = element.link;
-  cardElement.querySelector(".card__img").alt = element.name;
   return cardElement;
 };
 const addCard = (element) => {
@@ -78,26 +82,13 @@ const handleFormAddCard = (evt) => {
   closePopup(popupAddCard);
   formAddCard.reset();
 };
-
-const handleClosingOnOverlay = (evt) => {
-  if (evt.target.classList.contains("popup")) {
-    closePopup(evt.target);
-  }
-};
-
-const handleClosingOnEsc = (evt) => {
+const closeByEsc = (evt) => {
   if (evt.key === "Escape" || evt.key === "Esc") {
-    closePopup(popupImgCard);
-    closePopup(popupEditProfile);
-    closePopup(popupAddCard);
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
   }
 };
-// ?
-const handleLikeCard = (evt) => {
-  if (evt.target.classList.contains("card__like-button")) {
-    evt.target.classList.toggle("card__like-button_active");
-  }
-};
+
 // listeners
 formEditProfile.addEventListener("submit", handleFormEditProfile);
 formAddCard.addEventListener("submit", handleFormAddCard);
@@ -105,47 +96,20 @@ btnOpenEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileAbout.value = profileAbout.textContent;
   openPopup(popupEditProfile);
+  enableValidation();
 });
 btnOpenAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
-});
-btnCloseEditProfile.addEventListener("click", () => {
-  closePopup(popupEditProfile);
-});
-btnCloseAddCard.addEventListener("click", () => {
-  closePopup(popupAddCard);
-});
-btnCloseImg.addEventListener("click", () => {
-  closePopup(popupImgCard);
+  enableValidation();
 });
 
-document.addEventListener("keydown", handleClosingOnEsc);
-document.addEventListener("mousedown", handleClosingOnOverlay);
-// ?
-// корректно ли сделать кнопки карточки таким образом
-// или лучше оставить отрисовку карточки целой?
-document.addEventListener("click", handleLikeCard);
-
-//
-// document.addEventListener("keydown", (evt) => {
-//   if (evt.key === "Escape" || evt.key === "Esc") {
-//     closePopup(popupImgCard);
-//     closePopup(popupEditProfile);
-//     closePopup(popupAddCard);
-//   }
-// });
-
-// document.addEventListener("click", (evt) => {
-//   if (evt.target.classList.contains("popup")) {
-//     closePopup(evt.target);
-//   }
-// });
-
-// так тоже работает, но с ошибкой
-// popup.forEach(
-//   addEventListener("click", (evt) => {
-//     if (evt.target.classList.contains("popup")) {
-//       closePopup(evt.target);
-//     }
-//   })
-// );
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
+});
