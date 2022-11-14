@@ -20,17 +20,15 @@ const enableValidation = () => {
     });
   });
 };
-// пока работает
-// и сейчас работает
 
 const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // разобраться как правильно записать этот селектор в settings
   inputElement.classList.add(settings.inputErrorClass);
   errorElement.textContent = errorMessage;
 };
 
 const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`); // разобраться как правильно записать этот селектор в settings
   inputElement.classList.remove(settings.inputErrorClass);
   errorElement.textContent = "";
 };

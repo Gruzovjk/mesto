@@ -1,5 +1,5 @@
 // DOM-elements
-// const popup = Array.from(document.querySelectorAll(".popup"));
+const popups = Array.from(document.querySelectorAll(".popup"));
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 const popupEditProfile = document.querySelector(".popup_type_profile");
@@ -12,6 +12,8 @@ const cardTemplate = document
   .querySelector(".card__template")
   .content.querySelector(".card");
 // popup's elements
+const popupImg = popupImgCard.querySelector(".popup__img");
+const popupImgCaption = popupImgCard.querySelector(".popup__img-caption");
 const formEditProfile = document.forms.profile;
 const formAddCard = document.forms.card;
 const inputProfileName = formEditProfile.elements.name;
@@ -32,27 +34,27 @@ const closePopup = (element) => {
 };
 const renderCard = (element) => {
   const cardElement = cardTemplate.cloneNode(true);
+  const cardName = cardElement.querySelector(".card__name");
+  const cardImg = cardElement.querySelector(".card__img");
   const deleteButton = cardElement.querySelector(".card__remove-button");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  cardName.textContent = element.name;
+  cardImg.src = element.link;
+  cardImg.alt = element.name;
   deleteButton.addEventListener("click", (evt) => {
     const target = evt.target;
     const currentListItemEl = target.closest(".card");
     currentListItemEl.remove();
   });
-  // ? вопрос внизу, в слушателях
-  // const likeButton = cardElement.querySelector(".card__like-button");
-  // likeButton.addEventListener("click", (evt) => {
-  //   evt.target.classList.toggle("card__like-button_active");
-  // });
-  const imgOpen = cardElement.querySelector(".card__img");
-  imgOpen.addEventListener("click", () => {
-    popupImgCard.querySelector(".popup__img").src = imgOpen.src;
-    popupImgCard.querySelector(".popup__img").alt = imgOpen.alt;
-    popupImgCard.querySelector(".popup__img-caption").textContent = imgOpen.alt;
+  likeButton.addEventListener("click", (evt) => {
+    evt.target.classList.toggle("card__like-button_active");
+  });
+  cardImg.addEventListener("click", () => {
+    popupImg.src = cardImg.src;
+    popupImg.alt = cardImg.alt;
+    popupImgCaption.textContent = cardImg.alt;
     openPopup(popupImgCard);
   });
-  cardElement.querySelector(".card__name").textContent = element.name;
-  cardElement.querySelector(".card__img").src = element.link;
-  cardElement.querySelector(".card__img").alt = element.name;
   return cardElement;
 };
 const addCard = (element) => {
@@ -92,12 +94,7 @@ const handleClosingOnEsc = (evt) => {
     closePopup(popupAddCard);
   }
 };
-// ?
-const handleLikeCard = (evt) => {
-  if (evt.target.classList.contains("card__like-button")) {
-    evt.target.classList.toggle("card__like-button_active");
-  }
-};
+
 // listeners
 formEditProfile.addEventListener("submit", handleFormEditProfile);
 formAddCard.addEventListener("submit", handleFormAddCard);
@@ -105,9 +102,11 @@ btnOpenEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileAbout.value = profileAbout.textContent;
   openPopup(popupEditProfile);
+  enableValidation();
 });
 btnOpenAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
+  enableValidation();
 });
 btnCloseEditProfile.addEventListener("click", () => {
   closePopup(popupEditProfile);
@@ -121,10 +120,6 @@ btnCloseImg.addEventListener("click", () => {
 
 document.addEventListener("keydown", handleClosingOnEsc);
 document.addEventListener("mousedown", handleClosingOnOverlay);
-// ?
-// корректно ли сделать кнопки карточки таким образом
-// или лучше оставить отрисовку карточки целой?
-document.addEventListener("click", handleLikeCard);
 
 //
 // document.addEventListener("keydown", (evt) => {
@@ -142,7 +137,7 @@ document.addEventListener("click", handleLikeCard);
 // });
 
 // так тоже работает, но с ошибкой
-// popup.forEach(
+// popups.forEach(
 //   addEventListener("click", (evt) => {
 //     if (evt.target.classList.contains("popup")) {
 //       closePopup(evt.target);
