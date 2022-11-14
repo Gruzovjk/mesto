@@ -28,9 +28,11 @@ const btnCloseImg = popupImgCard.querySelector(".popup__close-button");
 //fncs
 const openPopup = (element) => {
   element.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEsc);
 };
 const closePopup = (element) => {
   element.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeByEsc);
 };
 const renderCard = (element) => {
   const cardElement = cardTemplate.cloneNode(true);
@@ -80,18 +82,10 @@ const handleFormAddCard = (evt) => {
   closePopup(popupAddCard);
   formAddCard.reset();
 };
-
-const handleClosingOnOverlay = (evt) => {
-  if (evt.target.classList.contains("popup")) {
-    closePopup(evt.target);
-  }
-};
-
-const handleClosingOnEsc = (evt) => {
+const closeByEsc = (evt) => {
   if (evt.key === "Escape" || evt.key === "Esc") {
-    closePopup(popupImgCard);
-    closePopup(popupEditProfile);
-    closePopup(popupAddCard);
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
   }
 };
 
@@ -108,39 +102,14 @@ btnOpenAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
   enableValidation();
 });
-btnCloseEditProfile.addEventListener("click", () => {
-  closePopup(popupEditProfile);
+
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(popup);
+    }
+  });
 });
-btnCloseAddCard.addEventListener("click", () => {
-  closePopup(popupAddCard);
-});
-btnCloseImg.addEventListener("click", () => {
-  closePopup(popupImgCard);
-});
-
-document.addEventListener("keydown", handleClosingOnEsc);
-document.addEventListener("mousedown", handleClosingOnOverlay);
-
-//
-// document.addEventListener("keydown", (evt) => {
-//   if (evt.key === "Escape" || evt.key === "Esc") {
-//     closePopup(popupImgCard);
-//     closePopup(popupEditProfile);
-//     closePopup(popupAddCard);
-//   }
-// });
-
-// document.addEventListener("click", (evt) => {
-//   if (evt.target.classList.contains("popup")) {
-//     closePopup(evt.target);
-//   }
-// });
-
-// так тоже работает, но с ошибкой
-// popups.forEach(
-//   addEventListener("click", (evt) => {
-//     if (evt.target.classList.contains("popup")) {
-//       closePopup(evt.target);
-//     }
-//   })
-// );
