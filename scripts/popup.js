@@ -20,11 +20,7 @@ const inputProfileName = formEditProfile.elements.name;
 const inputProfileAbout = formEditProfile.elements.about;
 const inputCardName = formAddCard.elements.name;
 const inputCardLink = formAddCard.elements.src;
-const btnCloseEditProfile = popupEditProfile.querySelector(
-  ".popup__close-button"
-);
-const btnCloseAddCard = popupAddCard.querySelector(".popup__close-button");
-const btnCloseImg = popupImgCard.querySelector(".popup__close-button");
+const btnSubmitAddCard = popupAddCard.querySelector(".popup__save-button");
 //fncs
 const openPopup = (element) => {
   element.classList.add("popup_opened");
@@ -96,13 +92,12 @@ btnOpenEditProfile.addEventListener("click", () => {
   inputProfileName.value = profileName.textContent;
   inputProfileAbout.value = profileAbout.textContent;
   openPopup(popupEditProfile);
-  enableValidation();
 });
 btnOpenAddCard.addEventListener("click", () => {
+  btnSubmitAddCard.disabled = true;
   openPopup(popupAddCard);
-  enableValidation();
 });
-
+//close by btn/overlay
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup_opened")) {
@@ -112,4 +107,12 @@ popups.forEach((popup) => {
       closePopup(popup);
     }
   });
+});
+
+enableValidation({
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  fieldSelector: ".popup__set",
+  submitButtonSelector: ".popup__save-button",
+  inputErrorClass: "popup__input_type_error",
 });
