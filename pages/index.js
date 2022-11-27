@@ -1,3 +1,5 @@
+import Card from "../scripts/components/card.js";
+import {initialCards} from "../scripts/utils/initialCards.js";
 // DOM-elements
 const popups = Array.from(document.querySelectorAll(".popup"));
 const profileName = document.querySelector(".profile__name");
@@ -30,35 +32,12 @@ const closePopup = (element) => {
   element.classList.remove("popup_opened");
   document.removeEventListener("keydown", closeByEsc);
 };
-const renderCard = (element) => {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardName = cardElement.querySelector(".card__name");
-  const cardImg = cardElement.querySelector(".card__img");
-  const deleteButton = cardElement.querySelector(".card__remove-button");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  cardName.textContent = element.name;
-  cardImg.src = element.link;
-  cardImg.alt = element.name;
-  deleteButton.addEventListener("click", (evt) => {
-    const target = evt.target;
-    const currentListItemEl = target.closest(".card");
-    currentListItemEl.remove();
-  });
-  likeButton.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("card__like-button_active");
-  });
-  cardImg.addEventListener("click", () => {
-    popupImg.src = cardImg.src;
-    popupImg.alt = cardImg.alt;
-    popupImgCaption.textContent = cardImg.alt;
-    openPopup(popupImgCard);
-  });
-  return cardElement;
-};
-const addCard = (element) => {
-  cardContainer.prepend(renderCard(element));
-};
-initialCards.forEach(addCard);
+
+initialCards.forEach((data) => {
+  const card = new Card(data, ".card__template");
+  const cardElement = card.generate();
+  cardContainer.prepend(cardElement);
+});
 
 // handlers
 const handleFormEditProfile = (evt) => {
@@ -116,3 +95,5 @@ enableValidation({
   submitButtonSelector: ".popup__save-button",
   inputErrorClass: "popup__input_type_error",
 });
+
+export {popupImg, popupImgCaption, popupImgCard, openPopup};
