@@ -1,29 +1,27 @@
 import Card from "../scripts/components/card.js";
 import {initialCards} from "../scripts/utils/initialCards.js";
-// DOM-elements
-const popups = Array.from(document.querySelectorAll(".popup"));
-const profileName = document.querySelector(".profile__name");
-const profileAbout = document.querySelector(".profile__about");
-const popupEditProfile = document.querySelector(".popup_type_profile");
-const popupAddCard = document.querySelector(".popup_type_card-add");
-const popupImgCard = document.querySelector(".popup_type_img");
-const btnOpenEditProfile = document.querySelector(".profile__edit-button");
-const btnOpenAddCard = document.querySelector(".profile__add-button");
-const cardContainer = document.querySelector(".elements__list");
-const cardTemplate = document
-  .querySelector(".card__template")
-  .content.querySelector(".card");
-// popup's elements
-const popupImg = popupImgCard.querySelector(".popup__img");
-const popupImgCaption = popupImgCard.querySelector(".popup__img-caption");
-const formEditProfile = document.forms.profile;
-const formAddCard = document.forms.card;
-const inputProfileName = formEditProfile.elements.name;
-const inputProfileAbout = formEditProfile.elements.about;
-const inputCardName = formAddCard.elements.name;
-const inputCardLink = formAddCard.elements.src;
-const btnSubmitAddCard = popupAddCard.querySelector(".popup__save-button");
-//fncs
+import {enableValidation} from "../scripts/components/validation.js";
+import {
+  popups,
+  profileName,
+  profileAbout,
+  popupEditProfile,
+  popupAddCard,
+  popupImgCard,
+  btnOpenEditProfile,
+  btnOpenAddCard,
+  cardContainer,
+  popupImg,
+  popupImgCaption,
+  formEditProfile,
+  formAddCard,
+  inputProfileName,
+  inputProfileAbout,
+  inputCardName,
+  inputCardLink,
+  btnSubmitAddCard,
+} from "../scripts/utils/constants.js";
+
 const openPopup = (element) => {
   element.classList.add("popup_opened");
   document.addEventListener("keydown", closeByEsc);
@@ -33,11 +31,13 @@ const closePopup = (element) => {
   document.removeEventListener("keydown", closeByEsc);
 };
 
-initialCards.forEach((data) => {
+const addCard = (data) => {
   const card = new Card(data, ".card__template");
   const cardElement = card.generate();
   cardContainer.prepend(cardElement);
-});
+};
+
+initialCards.forEach((item) => addCard(item));
 
 // handlers
 const handleFormEditProfile = (evt) => {
@@ -49,11 +49,11 @@ const handleFormEditProfile = (evt) => {
 };
 const handleFormAddCard = (evt) => {
   evt.preventDefault();
-  const el = {
+  const data = {
     name: inputCardName.value,
     link: inputCardLink.value,
   };
-  addCard(el);
+  addCard(data);
   closePopup(popupAddCard);
   formAddCard.reset();
 };

@@ -1,11 +1,10 @@
-// импорт пока что из index.js
-// импортируем нужные нам константы
+// импорт пока что из index.js из-за openPopup
 import {
   popupImg,
   popupImgCaption,
   popupImgCard,
   openPopup,
-} from "../../pages/index.js"; // изменить на "../utils/constants.js"
+} from "../../pages/index.js";
 
 export default class Card {
   constructor(data, templateSelector) {
@@ -14,11 +13,22 @@ export default class Card {
     this._templateSelector = templateSelector;
   }
 
+  generate() {
+    this._card = this._getTemplateElement();
+    this._getContent();
+    this._setEventListeners();
+    return this._card;
+  }
+
   _getTemplateElement() {
     const cardElement = document
       .querySelector(this._templateSelector)
       .content.querySelector(".card")
       .cloneNode(true);
+    this._title = cardElement.querySelector(".card__name");
+    this._image = cardElement.querySelector(".card__img");
+    this._likeButton = cardElement.querySelector(".card__like-button");
+    this._removeButton = cardElement.querySelector(".card__remove-button");
     return cardElement;
   }
 
@@ -53,22 +63,5 @@ export default class Card {
     this._image.addEventListener("click", () => {
       this._handleOpenPopupImg();
     });
-  }
-
-  // генерация карточки
-  generate() {
-    //* получаем cardElement
-    this._card = this._getTemplateElement();
-    //* связываемся с DOM
-    this._title = this._card.querySelector(".card__name");
-    this._image = this._card.querySelector(".card__img");
-    this._likeButton = this._card.querySelector(".card__like-button");
-    this._removeButton = this._card.querySelector(".card__remove-button");
-    //* заполняем карточку
-    this._getContent();
-    //* вешаем слушатели
-    this._setEventListeners();
-    //* возвращаем готовую карточку
-    return this._card;
   }
 }
