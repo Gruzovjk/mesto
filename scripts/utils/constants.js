@@ -16,6 +16,11 @@ const inputProfileAbout = formEditProfile.elements.about;
 const inputCardName = formAddCard.elements.name;
 const inputCardLink = formAddCard.elements.src;
 const btnSubmitAddCard = popupAddCard.querySelector(".popup__save-button");
+const settings = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inputErrorClass: "popup__input_type_error",
+};
 
 export {
   popups,
@@ -36,4 +41,5 @@ export {
   inputCardName,
   inputCardLink,
   btnSubmitAddCard,
+  settings,
 };

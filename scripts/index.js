@@ -1,6 +1,6 @@
-import Card from "../scripts/components/card.js";
-import {initialCards} from "../scripts/utils/initialCards.js";
-import {enableValidation} from "../scripts/components/validation.js";
+import Card from "./components/card.js";
+import FormValidator from "./components/formValidator.js";
+import {initialCards} from "./utils/initialCards.js";
 import {
   popups,
   profileName,
@@ -20,7 +20,8 @@ import {
   inputCardName,
   inputCardLink,
   btnSubmitAddCard,
-} from "../scripts/utils/constants.js";
+  settings,
+} from "./utils/constants.js";
 
 const openPopup = (element) => {
   element.classList.add("popup_opened");
@@ -88,12 +89,14 @@ popups.forEach((popup) => {
   });
 });
 
-enableValidation({
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  fieldSelector: ".popup__set",
-  submitButtonSelector: ".popup__save-button",
-  inputErrorClass: "popup__input_type_error",
-});
+const enableValidation = () => {
+  const forms = Array.from(document.forms);
+  forms.forEach((form) => {
+    const formValidator = new FormValidator(settings, form);
+    formValidator.enableValidation();
+  });
+};
+
+enableValidation();
 
 export {popupImg, popupImgCaption, popupImgCard, openPopup};
