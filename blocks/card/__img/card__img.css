@@ -2,6 +2,9 @@
   width: 100%;
   height: 282px;
   transition: all 0.2s ease-in;
+  background-image: url(../../../images/noImg.jpeg);
+  background-position: center;
+  color: white;
 }
 
 .card__img:hover {
