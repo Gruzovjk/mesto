@@ -22,7 +22,7 @@ export default class FormValidator {
     });
   }
 
-  _isValid(inputElement) {
+  _toggleInputErrorState(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement, inputElement.validationMessage);
     } else {
@@ -47,8 +47,9 @@ export default class FormValidator {
     );
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
-        this._isValid(inputElement);
+        this._toggleInputErrorState(inputElement);
         this._toggleButtonState();
+        1;
       });
     });
   }

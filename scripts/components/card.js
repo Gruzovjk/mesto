@@ -1,10 +1,8 @@
-// импорт пока что из index.js из-за openPopup
-import {popupImg, popupImgCaption, popupImgCard, openPopup} from "../index.js";
-
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, handleOpenPopupImg, templateSelector) {
     this._name = data.name;
     this._link = data.link;
+    this._handleOpenPopupImg = handleOpenPopupImg;
     this._templateSelector = templateSelector;
   }
 
@@ -28,14 +26,7 @@ export default class Card {
     this._likeButton.classList.toggle("card__like-button_active");
   }
 
-  _handleOpenPopupImg() {
-    popupImg.src = this._image.src;
-    popupImg.alt = this._image.alt;
-    popupImgCaption.textContent = this._image.alt;
-    openPopup(popupImgCard);
-  }
-
-  _getContent() {
+  _fillCardContent() {
     this._title.textContent = this._name;
     this._image.src = this._link;
     this._image.alt = this._name;
@@ -49,13 +40,13 @@ export default class Card {
       this._handleLikeCard();
     });
     this._image.addEventListener("click", () => {
-      this._handleOpenPopupImg();
+      this._handleOpenPopupImg(this._name, this._link);
     });
   }
 
   generate() {
     this._card = this._getTemplateElement();
-    this._getContent();
+    this._fillCardContent();
     this._setEventListeners();
     return this._card;
   }
