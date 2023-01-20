@@ -1,6 +1,7 @@
-import Card from "./components/card.js";
-import FormValidator from "./components/formValidator.js";
-import {initialCards, validationSettings} from "./utils/constants.js";
+import Card from "../scripts/components/card.js";
+import FormValidator from "../scripts/components/formValidator.js";
+import Section from "../scripts/components/section.js";
+import {initialCards, validationSettings} from "../scripts/utils/constants.js";
 import {
   popups,
   profileName,
@@ -20,7 +21,7 @@ import {
   inputCardName,
   inputCardLink,
   btnSubmitAddCard,
-} from "./utils/elements.js";
+} from "../scripts/utils/elements.js";
 
 const openPopup = (element) => {
   element.classList.add("popup_opened");
@@ -72,38 +73,7 @@ const closeByEsc = (evt) => {
   }
 };
 /*
-1. Можете пожалуйста пояснить, для чего вызывать валидатор отдельно для каждой формы? 
-В чем практический смысл? 
-
-2. В таком варианте код становится менее универсальным. При добавлении любой новой формы - 
-придется записывать новую константу и вызывать у неё enableValidation. А если форм будет 150?
-
-3. Я думаю, что смысл валидации в данном приложении в том, чтобы проверять то, что вводит ПОЛЬЗОВАТЕЛЬ. 
-Зачем нашей валидации проверять то, что МЫ написали? 
-Если мы просто одной строчкой можем задать стиль кнопки по умолчанию. 
-Обработчики кнопок у каждой формы все равно будут с отдельними приватными настройками 
-в соответствующем экземпляре своего класса. 
-(Что-то вроде:
-   class PopupAddCard extends Popup {
-   
-   ... 
-
-   _hanldeSubmitBtn() {
-    super._hanldeSubmitBtn();
-    "наши настройки..."
-   }
-
-   ...
-   }
-   p.s. может быть, я неправильно рассуждаю. 
-   
-4. Естественно, мне не составит труда раскомментировать и сделать toggleButtonState публичным, 
-но прежде, мне хотелось бы понять - почему этот вариант лучше
-
-const formEditProfileValidator = new FormValidator(
-  validationSettings,
-  formEditProfile
-);
+const formEditProfileValidator = new FormValidator(validationSettings, formEditProfile);
 const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
 
 formEditProfileValidator.enableValidation();
@@ -116,9 +86,17 @@ const enableValidation = () => {
     formValidator.enableValidation();
   });
 };
-
-enableValidation();
-
+//
+const cardsList = new Section(
+  {
+    data: messageList,
+    renderer: () => {
+      // Тело функции renderer пока оставим пустым
+    },
+  },
+  cardListSection
+);
+///////////
 // listeners
 formEditProfile.addEventListener("submit", handleFormEditProfile);
 formAddCard.addEventListener("submit", handleFormAddCard);
@@ -143,3 +121,5 @@ popups.forEach((popup) => {
     }
   });
 });
+
+enableValidation();
