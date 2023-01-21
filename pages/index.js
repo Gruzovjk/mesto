@@ -1,6 +1,6 @@
-import Card from "../scripts/components/card.js";
-import FormValidator from "../scripts/components/formValidator.js";
-import Section from "../scripts/components/section.js";
+import Card from "../scripts/components/Card.js";
+import FormValidator from "../scripts/components/FormValidator.js";
+import Section from "../scripts/components/Section.js";
 import {initialCards, validationSettings} from "../scripts/utils/constants.js";
 import {
   popups,
@@ -38,15 +38,35 @@ const handleOpenPopupImg = (name, link) => {
   popupImgCaption.textContent = name;
   openPopup(popupImgCard);
 };
+// ------
 
-const addCard = (data) => {
+// const addCard = (data) => {
+//   const card = new Card(data, handleOpenPopupImg, ".card__template");
+//   const cardElement = card.generate();
+//   cardContainer.prepend(cardElement);
+// };
+// создание карточки
+const createCard = (data) => {
   const card = new Card(data, handleOpenPopupImg, ".card__template");
   const cardElement = card.generate();
-  cardContainer.prepend(cardElement);
+  return cardElement;
 };
+// создание section
+const cardSection = new Section(
+  {
+    renderer: (data) => {
+      createCard(data);
+      cardSection.addItem(createCard(data));
+    },
+  },
+  cardContainer
+);
 
-initialCards.forEach(addCard);
+cardSection.renderItems(initialCards);
 
+// initialCards.forEach(addCard);
+
+// ------
 // handlers
 
 const handleFormEditProfile = (evt) => {
@@ -62,7 +82,7 @@ const handleFormAddCard = (evt) => {
     name: inputCardName.value,
     link: inputCardLink.value,
   };
-  addCard(data);
+  cardSection.addItem(createCard(data));
   closePopup(popupAddCard);
   formAddCard.reset();
 };
@@ -72,6 +92,7 @@ const closeByEsc = (evt) => {
     closePopup(openedPopup);
   }
 };
+
 /*
 const formEditProfileValidator = new FormValidator(validationSettings, formEditProfile);
 const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
@@ -79,6 +100,7 @@ const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
 formEditProfileValidator.enableValidation();
 formAddCardValidator.enableValidation();
 */
+// вкл. валидацию всех форм
 const enableValidation = () => {
   const forms = Array.from(document.forms);
   forms.forEach((form) => {
@@ -86,17 +108,10 @@ const enableValidation = () => {
     formValidator.enableValidation();
   });
 };
-//
-const cardsList = new Section(
-  {
-    data: messageList,
-    renderer: () => {
-      // Тело функции renderer пока оставим пустым
-    },
-  },
-  cardListSection
-);
+enableValidation();
+
 ///////////
+
 // listeners
 formEditProfile.addEventListener("submit", handleFormEditProfile);
 formAddCard.addEventListener("submit", handleFormAddCard);
@@ -121,5 +136,3 @@ popups.forEach((popup) => {
     }
   });
 });
-
-enableValidation();
