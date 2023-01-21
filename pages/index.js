@@ -1,7 +1,10 @@
 import Card from "../scripts/components/Card.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
-import Popup from "../scripts/components/Popup.js";
+// import Popup from "../scripts/components/Popup.js";
+// import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
+// import UserInfo from "../scripts/components/UserInfo.js";
 import {initialCards, validationSettings} from "../scripts/utils/constants.js";
 import {
   popups,
@@ -33,15 +36,26 @@ import {
 //   document.removeEventListener("keydown", closeByEsc);
 // };
 
-const handleOpenPopupImg = (name, link) => {
-  popupImg.src = link;
-  popupImg.alt = name;
-  popupImgCaption.textContent = name;
-  openPopup(popupImgCard);
-};
+// const handleOpenPopupImg = (name, link) => {
+//   popupImg.src = link;
+//   popupImg.alt = name;
+//   popupImgCaption.textContent = name;
+//   openPopup(popupImgCard);
+// };
+
+const popupWithImage = new PopupWithImage(".popup_type_img");
+// const handleCardClick = (data) => {
+//   popupWithImage.open(data);
+// };
+popupWithImage.setEventListeners();
+
 // создание карточки
 const createCard = (data) => {
-  const card = new Card(data, handleOpenPopupImg, ".card__template");
+  const card = new Card(
+    data,
+    {handleCardClick: (data) => popupWithImage.open(data)},
+    ".card__template"
+  );
   const cardElement = card.generate();
   return cardElement;
 };
@@ -77,12 +91,12 @@ const handleFormAddCard = (evt) => {
   closePopup(popupAddCard);
   formAddCard.reset();
 };
-const closeByEsc = (evt) => {
-  if (evt.key === "Escape" || evt.key === "Esc") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
-};
+// const closeByEsc = (evt) => {
+//   if (evt.key === "Escape" || evt.key === "Esc") {
+//     const openedPopup = document.querySelector(".popup_opened");
+//     closePopup(openedPopup);
+//   }
+// };
 
 /*
 const formEditProfileValidator = new FormValidator(validationSettings, formEditProfile);
