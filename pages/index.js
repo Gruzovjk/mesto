@@ -1,6 +1,7 @@
 import Card from "../scripts/components/Card.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
+import Popup from "../scripts/components/Popup.js";
 import {initialCards, validationSettings} from "../scripts/utils/constants.js";
 import {
   popups,
@@ -23,14 +24,14 @@ import {
   btnSubmitAddCard,
 } from "../scripts/utils/elements.js";
 
-const openPopup = (element) => {
-  element.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEsc);
-};
-const closePopup = (element) => {
-  element.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEsc);
-};
+// const openPopup = (element) => {
+//   element.classList.add("popup_opened");
+//   document.addEventListener("keydown", closeByEsc);
+// };
+// const closePopup = (element) => {
+//   element.classList.remove("popup_opened");
+//   document.removeEventListener("keydown", closeByEsc);
+// };
 
 const handleOpenPopupImg = (name, link) => {
   popupImg.src = link;
@@ -38,13 +39,6 @@ const handleOpenPopupImg = (name, link) => {
   popupImgCaption.textContent = name;
   openPopup(popupImgCard);
 };
-// ------
-
-// const addCard = (data) => {
-//   const card = new Card(data, handleOpenPopupImg, ".card__template");
-//   const cardElement = card.generate();
-//   cardContainer.prepend(cardElement);
-// };
 // создание карточки
 const createCard = (data) => {
   const card = new Card(data, handleOpenPopupImg, ".card__template");
@@ -61,12 +55,9 @@ const cardSection = new Section(
   },
   cardContainer
 );
-
+// отрисовка стартовых карточек
 cardSection.renderItems(initialCards);
 
-// initialCards.forEach(addCard);
-
-// ------
 // handlers
 
 const handleFormEditProfile = (evt) => {
@@ -100,7 +91,7 @@ const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
 formEditProfileValidator.enableValidation();
 formAddCardValidator.enableValidation();
 */
-// вкл. валидацию всех форм
+// вкл. валидации всех форм
 const enableValidation = () => {
   const forms = Array.from(document.forms);
   forms.forEach((form) => {
@@ -126,13 +117,13 @@ btnOpenAddCard.addEventListener("click", () => {
   openPopup(popupAddCard);
 });
 //close by btn/overlay
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (evt) => {
-    if (
-      evt.target.classList.contains("popup_opened") ||
-      evt.target.classList.contains("popup__close-button")
-    ) {
-      closePopup(popup);
-    }
-  });
-});
+// popups.forEach((popup) => {
+//   popup.addEventListener("mousedown", (evt) => {
+//     if (
+//       evt.target.classList.contains("popup_opened") ||
+//       evt.target.classList.contains("popup__close-button")
+//     ) {
+//       closePopup(popup);
+//     }
+//   });
+// });
