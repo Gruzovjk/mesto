@@ -6,19 +6,9 @@ import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import UserInfo from "../scripts/components/UserInfo.js";
 import {initialCards, validationSettings} from "../scripts/utils/constants.js";
 import {
-  popups,
-  profileName,
-  profileAbout,
-  popupEditProfile,
-  popupAddCard,
-  popupImgCard,
   btnOpenEditProfile,
   btnOpenAddCard,
   cardContainer,
-  popupImg,
-  popupImgCaption,
-  formEditProfile,
-  formAddCard,
   inputProfileName,
   inputProfileAbout,
   inputCardName,
@@ -67,26 +57,19 @@ const popupTypeProfile = new PopupWithForm({
 });
 popupTypeProfile.setEventListeners();
 
-// добавление карточки
+// добавление карточки + слушатели
+const popupTypeCardAdd = new PopupWithForm({
+  popupSelector: ".popup_type_card-add",
+  handleFormSubmit: () => {
+    const data = {
+      name: inputCardName.value,
+      link: inputCardLink.value,
+    };
+    cardSection.addItem(createCard(data));
+  },
+});
+popupTypeCardAdd.setEventListeners();
 
-const handleFormAddCard = (evt) => {
-  evt.preventDefault();
-  const data = {
-    name: inputCardName.value,
-    link: inputCardLink.value,
-  };
-  cardSection.addItem(createCard(data));
-  closePopup(popupAddCard);
-  formAddCard.reset();
-};
-
-/*
-const formEditProfileValidator = new FormValidator(validationSettings, formEditProfile);
-const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
-
-formEditProfileValidator.enableValidation();
-formAddCardValidator.enableValidation();
-*/
 // вкл. валидации всех форм
 const enableValidation = () => {
   const forms = Array.from(document.forms);
@@ -97,10 +80,7 @@ const enableValidation = () => {
 };
 enableValidation();
 
-///////////
-
-// listeners
-
+// открытие попапа редактирования профиля
 btnOpenEditProfile.addEventListener("click", function () {
   const values = userInfo.getUserInfo();
   inputProfileName.value = values.name;
@@ -108,15 +88,8 @@ btnOpenEditProfile.addEventListener("click", function () {
   popupTypeProfile.open();
 });
 
-// formEditProfile.addEventListener("submit", handleFormEditProfile);
-formAddCard.addEventListener("submit", handleFormAddCard);
-// btnOpenEditProfile.addEventListener("click", () => {
-//   inputProfileName.value = profileName.textContent;
-//   inputProfileAbout.value = profileAbout.textContent;
-//   openPopup(popupEditProfile);
-// });
+// открытие попапа добавления карточки
 btnOpenAddCard.addEventListener("click", () => {
-  // formAddCardValidator.toggleButtonState();
   btnSubmitAddCard.disabled = true;
-  openPopup(popupAddCard);
+  popupTypeCardAdd.open();
 });
