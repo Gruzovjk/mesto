@@ -2,24 +2,24 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./pages/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Проектная работа 'Mesto' Егор Филимонов на Яндекс Практикум">
   <meta name="keyword" content="Социальная сеть 'Mesto'">
   <meta name="author" content="Егор Филимонов">
   <title>Mesto</title>
+  <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
 </head>   
 <body class="page">
   <!--Шапка-->
   <header class="header">
-    <img src="./images/logo_white.svg" alt="Лого сайта" class="header__logo">
+    <img class="header__logo" src="<%=require('./images/logo_white.svg')%>" alt="Логотип Место">
   </header>
 
   <main class="content">
 
     <!--Профиль-->
     <section class="profile">
-        <img src="./images/avatar_kusto.svg" title="Ваш аватар" alt="Аватар" class="profile__avatar-img">
+        <img src="<%=require('./images/avatar_kusto.svg')%>" title="Ваш аватар" alt="Аватар" class="profile__avatar-img">
       <div class="profile__info">
         <h1 class="profile__name">Ваше имя</h1>
         <button class="profile__edit-button" type="button" title="Редактировать профиль"></button>
@@ -33,7 +33,7 @@
       <ul class="elements__list">
         <template class="card__template">
           <li class="card">
-            <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="Ваше место" class="card__img">  
+            <img src="#" alt="Ваше место" class="card__img">  
             <div class="card__caption">
               <h2 class="card__name"></h2>
               <button class="card__like-button" type="button" title="Мне нравится"></button>
@@ -94,13 +94,10 @@
       <!--Попап zoom фото-->
   <div class="popup popup_type_img">
     <div class="popup__container popup__container-img">
-      <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="Какая-то картинка" class="popup__img">
+      <img src="#" alt="Какая-то картинка" class="popup__img">
       <p class="popup__img-caption"></p>
       <button class="popup__close-button" type="button"></button>
     </div>
   </div>
-  <script src="./scripts/cards.js"></script>
-  <script src="./scripts/validation.js"></script>
-  <script src="./scripts/popup.js"></script>
 </body>
 </html>
