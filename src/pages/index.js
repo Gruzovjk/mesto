@@ -14,7 +14,8 @@ import {
   inputProfileAbout,
   inputCardName,
   inputCardLink,
-  btnSubmitAddCard,
+  formAddCard,
+  formEditProfile,
 } from "../scripts/utils/elements.js";
 
 // userInfo
@@ -72,14 +73,14 @@ const popupTypeCardAdd = new PopupWithForm({
 popupTypeCardAdd.setEventListeners();
 
 // вкл. валидации всех форм
-const enableValidation = () => {
-  const forms = Array.from(document.forms);
-  forms.forEach((form) => {
-    const formValidator = new FormValidator(validationSettings, form);
-    formValidator.enableValidation();
-  });
-};
-enableValidation();
+const formEditProfileValidator = new FormValidator(
+  validationSettings,
+  formEditProfile
+);
+formEditProfileValidator.enableValidation();
+
+const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
+formAddCardValidator.enableValidation();
 
 // открытие попапа редактирования профиля
 btnOpenEditProfile.addEventListener("click", function () {
@@ -91,6 +92,6 @@ btnOpenEditProfile.addEventListener("click", function () {
 
 // открытие попапа добавления карточки
 btnOpenAddCard.addEventListener("click", () => {
-  btnSubmitAddCard.disabled = true;
   popupTypeCardAdd.open();
+  formAddCardValidator.toggleButtonState();
 });
