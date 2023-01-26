@@ -16,6 +16,8 @@ import {
   inputCardLink,
   formAddCard,
   formEditProfile,
+  formUpdateAvatar,
+  btnUpdateAvatar,
 } from "../scripts/utils/elements.js";
 
 // userInfo
@@ -82,6 +84,12 @@ formEditProfileValidator.enableValidation();
 const formAddCardValidator = new FormValidator(validationSettings, formAddCard);
 formAddCardValidator.enableValidation();
 
+const formUpdateAvatarValidator = new FormValidator(
+  validationSettings,
+  formUpdateAvatar
+);
+formUpdateAvatarValidator.enableValidation();
+
 // открытие попапа редактирования профиля
 btnOpenEditProfile.addEventListener("click", function () {
   const values = userInfo.getUserInfo();
@@ -94,4 +102,29 @@ btnOpenEditProfile.addEventListener("click", function () {
 btnOpenAddCard.addEventListener("click", () => {
   popupTypeCardAdd.open();
   formAddCardValidator.toggleButtonState();
+});
+///////////////////////////
+const popupTypeUpdateAvatar = new PopupWithForm({
+  popupSelector: ".popup_type_update-avatar",
+  handleFormSubmit: () => {
+    console.log("322");
+  },
+});
+popupTypeUpdateAvatar.setEventListeners();
+
+btnUpdateAvatar.addEventListener("click", function () {
+  popupTypeUpdateAvatar.open();
+  formUpdateAvatarValidator.toggleButtonState();
+});
+
+/////////////////////////
+const popupTypeConfirm = new Popup(".popup_type_confirm-remove");
+popupTypeConfirm.setEventListeners();
+
+const btnRemoveCard = document.querySelectorAll(".card__remove-button");
+
+btnRemoveCard.forEach((element) => {
+  element.addEventListener("click", function () {
+    popupTypeConfirm.open();
+  });
 });
