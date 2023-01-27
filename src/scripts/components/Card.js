@@ -14,6 +14,7 @@ export default class Card {
     this._image = cardElement.querySelector(".card__img");
     this._likeButton = cardElement.querySelector(".card__like-button");
     this._removeButton = cardElement.querySelector(".card__remove-button");
+    // this._likeCounter = cardElement.querySelector(".card__like-counter");
     return cardElement;
   }
 
@@ -30,6 +31,7 @@ export default class Card {
     this._title.textContent = this._data.name;
     this._image.src = this._data.link;
     this._image.alt = this._data.name;
+    // this._likeCounter.textContent = "245";
   }
 
   _setEventListeners() {

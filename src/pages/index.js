@@ -1,11 +1,14 @@
 import "./index.css";
+import Api from "../scripts/components/Api";
 import Card from "../scripts/components/Card.js";
 import FormValidator from "../scripts/components/FormValidator.js";
 import Section from "../scripts/components/Section.js";
 import PopupWithForm from "../scripts/components/PopupWithForm.js";
 import PopupWithImage from "../scripts/components/PopupWithImage.js";
 import UserInfo from "../scripts/components/UserInfo.js";
-import {initialCards, validationSettings} from "../scripts/utils/constants.js";
+import PopupWithConfirm from "../scripts/components/PopupWithConfirm";
+import {validationSettings} from "../scripts/utils/constants.js";
+import {apiConfig} from "../scripts/utils/apiConfig";
 import {
   btnOpenEditProfile,
   btnOpenAddCard,
@@ -18,20 +21,19 @@ import {
   formEditProfile,
   formUpdateAvatar,
   btnUpdateAvatar,
+  avatarImg,
+  inputUpdateAvatar,
 } from "../scripts/utils/elements.js";
 
-// userInfo
+// подключаем Api (да помогут мне боги всех пантеонов)
+const api = new Api(apiConfig);
+
+// инициализация юзер инфо
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__name",
   profileAboutSelector: ".profile__about",
+  profileAvatarSelector: ".profile__avatar-img",
 });
-
-// создание попапа изображения + слушатели
-const popupWithImage = new PopupWithImage(".popup_type_img");
-const handleCardClick = (data) => {
-  popupWithImage.open(data);
-};
-popupWithImage.setEventListeners();
 
 // функция создание карточки
 const createCard = (data) => {
@@ -40,7 +42,7 @@ const createCard = (data) => {
   return cardElement;
 };
 
-// создание section + отрисовка стартовых карточек
+// создание section
 const cardSection = new Section(
   {
     renderer: (data) => {
@@ -50,7 +52,36 @@ const cardSection = new Section(
   },
   cardContainer
 );
-cardSection.renderItems(initialCards);
+// отрисовка карточек с сервера (работает)
+api
+  .getInitialCards()
+  .then((res) => {
+    cardSection.renderItems(res);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+// отрисовка юзер инфо с сервера (вроде работает)
+api
+  .getProfileInfo()
+  .then((data) => {
+    userInfo.setUserInfo({
+      name: data.name,
+      about: data.about,
+      avatar: data.avatar,
+      userID: data._id,
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+// создание попапа изображения + слушатели
+const popupWithImage = new PopupWithImage(".popup_type_img");
+const handleCardClick = (data) => {
+  popupWithImage.open(data);
+};
+popupWithImage.setEventListeners();
 
 // создание попапа профиля + слушатели
 const popupTypeProfile = new PopupWithForm({
@@ -103,11 +134,11 @@ btnOpenAddCard.addEventListener("click", () => {
   popupTypeCardAdd.open();
   formAddCardValidator.toggleButtonState();
 });
-///////////////////////////
+/////////////////////////// обновление аватара
 const popupTypeUpdateAvatar = new PopupWithForm({
   popupSelector: ".popup_type_update-avatar",
   handleFormSubmit: () => {
-    console.log("322");
+    avatarImg.src = inputUpdateAvatar.value;
   },
 });
 popupTypeUpdateAvatar.setEventListeners();
@@ -118,7 +149,7 @@ btnUpdateAvatar.addEventListener("click", function () {
 });
 
 /////////////////////////
-const popupTypeConfirm = new Popup(".popup_type_confirm-remove");
+const popupTypeConfirm = new PopupWithConfirm(".popup_type_confirm-remove");
 popupTypeConfirm.setEventListeners();
 
 const btnRemoveCard = document.querySelectorAll(".card__remove-button");

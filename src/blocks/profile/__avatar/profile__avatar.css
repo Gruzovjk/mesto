@@ -3,5 +3,5 @@
   height: 120px;
   position: relative;
   border-radius: 50%;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
