@@ -13,76 +13,70 @@ export default class Api {
     }
   }
   // получаем карточки с сервера (дай Бог)
-  async getInitialCards() {
-    const res = await fetch(`${this._url}/cards`, {
+  getInitialCards() {
+    return fetch(`${this._url}/cards`, {
       method: "GET",
       headers: this._headers,
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
   // Добавление карточки на сервер (Зевс смилуется)
-  async addCard(data) {
-    const res = await fetch(`${this._url}/cards`, {
+  addCard(data) {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link,
       }),
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
   // удаление карточки с сервера по id (Будда услышит)
-  async removeCard(cardId) {
-    const res = await fetch(`${this._url}/cards/${cardId}`, {
+  removeCard(id) {
+    return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
   // лайки (Афродита одобрит)
-  addLike(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+  addLikeC(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
     }).then(this._handleResponse);
   }
-  removeLike(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+  removeLike(id) {
+    return fetch(`${this._url}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._handleResponse);
   }
 
   // получаем инфо профиля (Кришна со мной)
-  async getUserInfo() {
-    const res = await fetch(`${this._url}/users/me`, {
+  getProfileInfo() {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
-  // редкатирование инфо (Перун благословит)
-  async editUserInfo(data) {
-    const res = await fetch(`${this._url}/users/me`, {
+  // редкатирование аватара (Перун благословит)
+  editProfileAvatar(data) {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         about: data.about,
       }),
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
-  // редактирование аватара профиля (Один в помощь)
-  async editUserAvatar(data) {
-    const res = await fetch(`${this._url}/users/me/avatar`, {
+  // редактирование инфо профиля (Один в помощь)
+  editProfileInfo(data) {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
 }
