@@ -3,23 +3,28 @@ import Popup from "./Popup.js";
 export default class PopupWithConfirm extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
+    this._submitButton = this._popup.querySelector(".popup__save-button");
+    this._buttonOrigText = this._submitButton.textContent;
+    this._form = this._popup.querySelector(".popup__set");
   }
 
   setSubmitAction(action) {
     this._handleSubmit = action;
   }
 
+  twister(isLoading) {
+    if (isLoading) {
+      this._submitButton.textContent = "Удаление...";
+    } else {
+      this._submitButton.textContent = this._buttonOrigText;
+    }
+  }
+
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener("click", (evt) => {
-      if (evt.target.classList.contains("popup__save-button")) {
-        console.log(
-          "У меня нет идей, почему не работает сабмит. Никаких. Я 2 часа пытаюсь решить эту проблему. type кнопки в html = submit."
-        );
-        // evt.preventDefault();
-        this._handleSubmit();
-        super.close();
-      }
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleSubmit();
     });
   }
 }

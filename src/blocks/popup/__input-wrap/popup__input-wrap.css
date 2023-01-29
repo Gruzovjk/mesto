@@ -1,19 +1,19 @@
-.popup__container-field {
+.popup__input-wrap {
   margin: 0;
   padding: 0;
   max-width: 358px;
 }
 
-.popup__container-field:nth-child(2) {
+.popup__input-wrap:nth-child(2) {
   margin-top: 30px;
 }
 
-.popup__container-field:nth-child(3) {
+.popup__input-wrap:nth-child(3) {
   margin-bottom: 0;
 }
 
 @media screen and (max-width: 650px) {
-  .popup__container-field {
+  .popup__input-wrap {
     max-width: 238px;
   }
 }
