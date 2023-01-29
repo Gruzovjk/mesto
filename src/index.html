@@ -19,7 +19,7 @@
     <!--Профиль-->
     <section class="profile">
       <div class="profile__avatar">
-        <img src="<%=require('./images/avatar_kusto.svg')%>" title="Ваш аватар" alt="Аватар" class="profile__avatar-img">
+        <img src="#" title="Ваш аватар" alt="Аватар" class="profile__avatar-img">
         <button class="profile__avatar-edit-button" type="button" aria-label="Редактировать фото профиля"></button>
       </div>  
       <div class="profile__info">
@@ -38,7 +38,10 @@
             <img src="#" alt="Ваше место" class="card__img">  
             <div class="card__caption">
               <h2 class="card__name"></h2>
-              <button class="card__like-button" type="button" title="Мне нравится"></button>
+              <div class="card__like">
+                <button class="card__like-button" type="button" title="Мне нравится"></button>
+                <span class="card__like-counter"></span>
+              </div>  
             </div>
             <button class="card__remove-button" type="button" title="Удалить место"></button>    
           </li>
@@ -89,7 +92,7 @@
           <button type="submit" class="popup__save-button">Создать</button>
         </fieldset>
       </form>
-      <button type="button" class="popup__close-button"></button>
+      <button class="popup__close-button" type="button"></button>
     </div>
   </div>
 
@@ -109,13 +112,13 @@
         <fieldset class="popup__set">
           <h2 class="popup__title">Обновить аватар</h2>
           <label class="popup__container-field">
-            <input type="url" pattern="([^\s]+(?=\.(jpg|gif|png|jpeg))\.\2)" id='card-src' class="popup__input popup__card-link" name="src" placeholder="Ссылка на фото (формата .jpg, .gif или .png)" required>
+            <input type="url" pattern="([^\s]+(?=\.(jpg|gif|png|jpeg))\.\2)" id='card-src' class="popup__input popup__card-link" name="avatar" placeholder="Ссылка на фото (формата .jpg, .gif или .png)" required>
             <span class="popup__input-error"></span>
           </label>
           <button type="submit" class="popup__save-button">Сохранить</button>
-          <button class="popup__close-button" type="button"></button>
         </fieldset>
       </form>  
+      <button class="popup__close-button" type="button"></button>
     </div>
   </div>
       <!-- Попап подтверждение удаления -->
@@ -124,8 +127,8 @@
       <fieldset class="popup__set">
         <h2 class="popup__title">Вы уверены?</h2>
         <button type="submit" class="popup__save-button">Да</button>
-        <button class="popup__close-button" type="button"></button>
       </fieldset>
+      <button class="popup__close-button" type="button"></button>
     </div>
   </div>
 </body>

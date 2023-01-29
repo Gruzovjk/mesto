@@ -9,6 +9,8 @@ const inputCardName = formAddCard.elements.name;
 const inputCardLink = formAddCard.elements.src;
 const formUpdateAvatar = document.forms.avatar;
 const btnUpdateAvatar = document.querySelector(".profile__avatar-edit-button");
+const avatarImg = document.querySelector(".profile__avatar-img");
+const inputUpdateAvatar = formUpdateAvatar.elements.src;
 
 export {
   btnOpenEditProfile,
@@ -22,4 +24,6 @@ export {
   formAddCard,
   formUpdateAvatar,
   btnUpdateAvatar,
+  avatarImg,
+  inputUpdateAvatar,
 };
