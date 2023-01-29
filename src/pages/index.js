@@ -29,12 +29,57 @@ const userInfo = new UserInfo({
   profileAboutSelector: ".profile__about",
   profileAvatarSelector: ".profile__avatar-img",
 });
+
 // подключил апи
 const api = new Api(apiConfig);
-
+// получаю свой айди
+let userId;
 // функция создание карточки
-const createCard = (data) => {
-  const card = new Card(data, handleCardClick, ".card__template");
+const createCard = (cardData) => {
+  const card = new Card({
+    data: cardData,
+    handleCardClick: (data) => {
+      popupWithImage.open(data);
+    },
+    templateSelector: ".card__template",
+    userId: userId,
+    handleRemoveButton: (card) => {
+      popupTypeConfirm.open();
+      popupTypeConfirm.setSubmitAction(() => {
+        api
+          .removeCard(card.id())
+          .then(() => {
+            card.removeCard();
+          })
+          .catch((err) =>
+            console.log(`При удалении фото произошла ошибка: ${err}`)
+          );
+      });
+    },
+    handleLikeButton: () => {
+      if (!card.isLiked) {
+        api
+          .addLike(card.id())
+          .then((res) => {
+            card.addLike();
+            card.updateLikeCounter(res.likes);
+          })
+          .catch((err) =>
+            console.log(`При добавлении лайка произошла ошибка: ${err}`)
+          );
+      } else {
+        api
+          .removeLike(card.id())
+          .then((res) => {
+            card.removeLike();
+            card.updateLikeCounter(res.likes);
+          })
+          .catch((err) =>
+            console.log(`При удалении  лайка произошла ошибка: ${err}`)
+          );
+      }
+    },
+  });
   return card.generate();
 };
 
@@ -43,7 +88,7 @@ const cardSection = new Section(
   {
     renderer: (data) => {
       createCard(data);
-      cardSection.addItem(createCard(data));
+      cardSection.addItemApp(createCard(data));
     },
   },
   cardContainer
@@ -52,11 +97,13 @@ const cardSection = new Section(
 // отрисовка данных с сервера
 Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
   ([userData, cardList]) => {
+    userId = userData._id;
     userInfo.setUserInfo(userData);
     userInfo.setUserAvatar(userData);
     cardSection.renderItems(cardList);
   }
 );
+
 /// попапы
 
 // добавление карточки
@@ -67,13 +114,17 @@ const popupTypeCardAdd = new PopupWithForm({
       name: inputCardName.value,
       link: inputCardLink.value,
     };
+    popupTypeCardAdd.twister(true);
     api
       .addCard(data)
       .then((res) => {
-        cardSection.addItem(createCard(res));
+        cardSection.addItemPrep(createCard(res));
       })
       .catch((err) => {
-        console.log(`Не удалось загрузить, ${err}`);
+        console.log(`При загрузке фото произошла ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupTypeCardAdd.twister(false);
       });
   },
 });
@@ -87,9 +138,18 @@ popupWithImage.setEventListeners();
 const popupTypeUpdateAvatar = new PopupWithForm({
   popupSelector: ".popup_type_update-avatar",
   handleFormSubmit: (data) => {
-    api.editUserAvatar(data).then((res) => {
-      userInfo.setUserAvatar(res);
-    });
+    popupTypeUpdateAvatar.twister(true);
+    api
+      .editUserAvatar(data)
+      .then((res) => {
+        userInfo.setUserAvatar(res);
+      })
+      .catch((err) =>
+        console.log(`При загрузке аватара произошла ошибка: ${err}`)
+      )
+      .finally(() => {
+        popupTypeUpdateAvatar.twister(false);
+      });
   },
 });
 popupTypeUpdateAvatar.setEventListeners();
@@ -98,13 +158,17 @@ popupTypeUpdateAvatar.setEventListeners();
 const popupTypeProfile = new PopupWithForm({
   popupSelector: ".popup_type_profile",
   handleFormSubmit: (data) => {
+    popupTypeProfile.twister(true);
     api
       .editUserInfo(data)
       .then((res) => {
         userInfo.setUserInfo(res);
       })
       .catch((err) => {
-        console.log(`Поймали ошибку ${err}`);
+        console.log(`При обновлении данных произошла ошибка: ${err}`);
+      })
+      .finally(() => {
+        popupTypeProfile.twister(false);
       });
   },
 });
@@ -121,11 +185,6 @@ btnOpenAddCard.addEventListener("click", () => {
   popupTypeCardAdd.open();
   formAddCardValidator.toggleButtonState();
 });
-
-// открытия попапа изображения
-const handleCardClick = (data) => {
-  popupWithImage.open(data);
-};
 
 // открытие попапа апдейта аватара
 btnUpdateAvatar.addEventListener("click", function () {

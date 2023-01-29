@@ -41,17 +41,19 @@ export default class Api {
     return this._checkResponse(res);
   }
   // лайки (Афродита одобрит)
-  addLike(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+  async addLike(cardId) {
+    const res = await fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._handleResponse);
+    });
+    return this._checkResponse(res);
   }
-  removeLike(cardId) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
+  async removeLike(cardId) {
+    const res = await fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._handleResponse);
+    });
+    return this._checkResponse(res);
   }
 
   // получаем инфо профиля (Кришна со мной)

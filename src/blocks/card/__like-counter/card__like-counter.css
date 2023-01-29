@@ -1,5 +1,8 @@
 .card__like-counter {
-  max-width: 25px; /* 4-х значные не влезают */
+  margin: 0;
+  padding: 0;
+  /* max-width: 25px; 4-х значные не влезают */
+  height: 14px;
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
