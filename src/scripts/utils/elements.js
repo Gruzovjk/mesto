@@ -5,8 +5,6 @@ const formEditProfile = document.forms.profile;
 const formAddCard = document.forms.card;
 const inputProfileName = formEditProfile.elements.name;
 const inputProfileAbout = formEditProfile.elements.about;
-const inputCardName = formAddCard.elements.name;
-const inputCardLink = formAddCard.elements.src;
 const formUpdateAvatar = document.forms.avatar;
 const btnUpdateAvatar = document.querySelector(".profile__avatar-edit-button");
 const avatarImg = document.querySelector(".profile__avatar-img");
@@ -19,8 +17,6 @@ export {
   formEditProfile,
   inputProfileName,
   inputProfileAbout,
-  inputCardName,
-  inputCardLink,
   formAddCard,
   formUpdateAvatar,
   btnUpdateAvatar,

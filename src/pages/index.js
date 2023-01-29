@@ -15,8 +15,6 @@ import {
   cardContainer,
   inputProfileName,
   inputProfileAbout,
-  inputCardName,
-  inputCardLink,
   formAddCard,
   formEditProfile,
   formUpdateAvatar,
@@ -46,14 +44,19 @@ const createCard = (cardData) => {
     handleRemoveButton: (card) => {
       popupTypeConfirm.open();
       popupTypeConfirm.setSubmitAction(() => {
+        popupTypeConfirm.twister(true);
         api
           .removeCard(card.id())
           .then(() => {
             card.removeCard();
+            popupTypeConfirm.close();
           })
           .catch((err) =>
             console.log(`При удалении фото произошла ошибка: ${err}`)
-          );
+          )
+          .finally(() => {
+            popupTypeConfirm.twister(false);
+          });
       });
     },
     handleLikeButton: () => {
@@ -87,7 +90,6 @@ const createCard = (cardData) => {
 const cardSection = new Section(
   {
     renderer: (data) => {
-      createCard(data);
       cardSection.addItemApp(createCard(data));
     },
   },
@@ -99,7 +101,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
   ([userData, cardList]) => {
     userId = userData._id;
     userInfo.setUserInfo(userData);
-    userInfo.setUserAvatar(userData);
     cardSection.renderItems(cardList);
   }
 );
@@ -109,16 +110,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
 // добавление карточки
 const popupTypeCardAdd = new PopupWithForm({
   popupSelector: ".popup_type_card-add",
-  handleFormSubmit: () => {
-    const data = {
-      name: inputCardName.value,
-      link: inputCardLink.value,
-    };
+  handleFormSubmit: (data) => {
     popupTypeCardAdd.twister(true);
     api
       .addCard(data)
       .then((res) => {
         cardSection.addItemPrep(createCard(res));
+        popupTypeCardAdd.close();
       })
       .catch((err) => {
         console.log(`При загрузке фото произошла ошибка: ${err}`);
@@ -142,7 +140,8 @@ const popupTypeUpdateAvatar = new PopupWithForm({
     api
       .editUserAvatar(data)
       .then((res) => {
-        userInfo.setUserAvatar(res);
+        userInfo.setUserInfo(res);
+        popupTypeUpdateAvatar.close();
       })
       .catch((err) =>
         console.log(`При загрузке аватара произошла ошибка: ${err}`)
@@ -163,6 +162,7 @@ const popupTypeProfile = new PopupWithForm({
       .editUserInfo(data)
       .then((res) => {
         userInfo.setUserInfo(res);
+        popupTypeProfile.close();
       })
       .catch((err) => {
         console.log(`При обновлении данных произошла ошибка: ${err}`);

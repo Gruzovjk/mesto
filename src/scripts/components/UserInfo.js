@@ -20,20 +20,7 @@ export default class UserInfo {
   setUserInfo(data) {
     this._profileName.textContent = data.name;
     this._profileAbout.textContent = data.about;
-    this.userID = data._id;
-  }
-
-  setUserAvatar(data) {
     this._profileAvatar.src = data.avatar;
-  }
-
-  getUserId() {
-    return this._userId;
-  }
-
-  updateUserInfo(data) {
-    this._profileName.textContent = data.name;
-    this._profileAbout.textContent = data.about;
-    this._profileAvatar.src = data.avatar;
+    this._userId = data._id;
   }
 }
